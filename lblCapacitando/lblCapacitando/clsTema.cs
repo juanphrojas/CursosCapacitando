@@ -65,21 +65,30 @@ namespace lblCapacitando
 
         private bool ValidarDatos()
         {
-            if (string.IsNullOrEmpty(Nombre))
+            try
             {
-                strError = "Falta el nombre";
+                if (string.IsNullOrEmpty(Nombre))
+                {
+                    strError = "Falta el nombre";
+                    return false;
+                }
+
+
+                if (string.IsNullOrEmpty(Descripcion))
+                {
+                    strError = "Falta la descripcion";
+                    return false;
+                }
+
+
+                return true;
+
+            }
+            catch (Exception ex)
+            {
+                strError = ex.Message;
                 return false;
             }
-
-
-            if (string.IsNullOrEmpty(Descripcion))
-            {
-                strError = "Falta la descripcion";
-                return false;
-            }
-            
-
-            return true;
         }
 
         private bool Grabar()

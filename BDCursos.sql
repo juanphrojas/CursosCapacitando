@@ -4,7 +4,7 @@ GO
 USE BDCursosCapacitando
 GO
 
-drop database BDCursosCapacitando
+
 -----------------------------------------------------------------------------------------------------
 ----------------------------------------------TABLAS-------------------------------------------------
 -----------------------------------------------------------------------------------------------------
@@ -507,3 +507,150 @@ BEGIN
 			return
 END
 GO
+
+-------------------------------------------------------------------------
+----------------------------------TEMA-----------------------------------
+-------------------------------------------------------------------------
+
+CREATE PROCEDURE USP_CURso_BuscarGeneral
+	AS
+		BEGIN
+			SELECT intCod_CUR as Clave,
+					strNombre_CUR as Curso,
+					CONVERT (varchar(10), dtmFecha_CUR, 103) as FechaCreacion,
+					realCosto_CUR as Costo,
+					intHoras_CUR as Horas,
+					strNombre_EMP as NombreEmpleado,
+					strApellido_EMP as ApellidoEmpleado
+			FROM tblCURso inner join tblEMPleado on idEMP_CUR = intCod_EMP
+			ORDER BY strNombre_CUR
+		END
+GO
+
+CREATE PROCEDURE USP_CURso_BuscarGrid
+@Codigo int
+AS
+BEGIN
+	begin
+		SELECT intCod_TEM as ClaveTema,
+				strNombre_TEM as Tema,
+				strDescripcion_TEM as DescripcionTema
+		FROM tblTEMa inner join tblCUrso_TEma on idTEM_CUTE = intCod_TEM
+		inner join tblCURso on idCUR_CUTE = intCod_CUR
+		WHERE intCod_CUR = @Codigo
+	end
+
+END
+GO
+
+CREATE PROCEDURE USP_CURso_BuscarXCodigo
+@Codigo int
+
+AS
+	BEGIN
+			SELECT intCod_CUR as Clave,
+					strNombre_CUR as Curso,
+					CONVERT (varchar(10), dtmFecha_CUR, 103) as FechaCreacion,
+					realCosto_CUR as Costo,
+					intHoras_CUR as Horas,
+					idEMP_CUR as Empleado
+			FROM tblCURso
+			where intCod_CUR = @Codigo
+			EXEC USP_CURso_BuscarGrid @Codigo
+  END
+GO
+
+--exec USP_CURso_BuscarXCodigo 1;
+
+CREATE PROCEDURE USP_CURso_Grabar
+	@Nombre Varchar(50),
+	@Costo real,
+	@Horas int,
+	@idEmpleado int
+AS
+	BEGIN
+	if exists (select strNombre_CUR from tblCURso where strNombre_CUR = @Nombre) 
+		begin
+			select -1 as Rpta
+			return
+		end
+	else
+		begin transaction tx
+		insert into tblCURso values (@Nombre,GETDATE(),@Costo,@Horas,@idEmpleado);
+		if (@@ERROR > 0 )
+			begin 
+				rollback transaction tx
+				select 0 as Rpta
+				return 
+				end
+			commit transaction tx
+		SELECT @@IDENTITY as Rpta
+		return
+	
+	
+	END
+GO
+
+CREATE PROCEDURE USP_CURso_Modificar
+	@Codigo int,
+	@Nombre Varchar(50),
+	@Costo real,
+	@Horas int,
+	@idEmpleado int
+AS
+BEGIN
+	if not exists (select intCod_CUR from tblCURso where intCod_CUR = @Codigo)
+		begin
+			select -1 as Rpta
+			return
+		end
+	else
+		begin transaction tx
+		update tblCURso
+			set strNombre_CUR = @Nombre,
+				dtmFecha_CUR=GETDATE(),
+				realCosto_CUR = @Costo,
+				intHoras_CUR=@Horas
+			where intCod_CUR = @Codigo
+			if (@@ERROR>0)
+				begin 
+				rollback transaction tx
+				select 0 as Rpta
+				return
+				end
+			commit transaction tx
+			select @@IDENTITY as  Rpta
+			return
+END
+GO
+
+CREATE PROCEDURE USP_CURso_GrabarTema
+	@idCurso int,
+	@idTema int
+AS
+BEGIN
+	if exists (select intCod_CUTE from tblCUrso_TEma where idCUR_CUTE =@idCurso and idTEM_CUTE = @idTema)
+		begin 
+			select -1 as Rpta
+			return 
+		end
+	else
+		
+		begin
+		begin transaction tx
+			insert into tblCUrso_TEma values (@idCurso, @idTema)
+			if (@@ERROR>0)
+				begin 
+				rollback transaction tx
+				select 0 as Rpta
+				return
+			end
+		commit transaction tx
+		select @idCurso as Rpta
+		return
+		end
+		
+END
+GO
+--exec USP_CURso_GrabarTema 1,2;
+

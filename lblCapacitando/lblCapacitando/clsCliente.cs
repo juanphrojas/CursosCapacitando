@@ -45,7 +45,7 @@ namespace lblCapacitando
             strError = string.Empty;
         }
 
-        public clsCliente(string Aplicacion, int _Codigo, string _Cedula, string _Nombre, string _Apellido, int _Empleado,)
+        public clsCliente(string Aplicacion, int _Codigo, string _Cedula, string _Nombre, string _Apellido, int _Empleado)
         {
             Codigo = _Codigo;
             Cedula = _Cedula;
@@ -71,46 +71,54 @@ namespace lblCapacitando
 
         private bool ValidarDatos()
         {
-            if (string.IsNullOrEmpty(Cedula))
+            try
             {
-                strError = "Falta el numero de la cedula";
-                return false;
-            }
+                if (string.IsNullOrEmpty(Cedula))
+                {
+                    strError = "Falta el numero de la cedula";
+                    return false;
+                }
 
-            if (string.IsNullOrEmpty(Nombre))
-            {
-                strError = "Falta el nombre";
-                return false;
-            }
+                if (string.IsNullOrEmpty(Nombre))
+                {
+                    strError = "Falta el nombre";
+                    return false;
+                }
 
-            if (string.IsNullOrEmpty(Apellido))
-            {
-                strError = "Falta el apellido";
-                return false;
-            }
-            
-            if (string.IsNullOrEmpty(idEmpleado.ToString()))
-            {
-                strError = "Falta el empleado";
-                return false;
-            }
-            if (idEmpleado <= 0)
-            {
-                strError = "El empleado seleccionado no es valido";
-                return false;
-            }
+                if (string.IsNullOrEmpty(Apellido))
+                {
+                    strError = "Falta el apellido";
+                    return false;
+                }
 
-            if (string.IsNullOrEmpty(Codigo.ToString()))
+                if (string.IsNullOrEmpty(idEmpleado.ToString()))
+                {
+                    strError = "Falta el empleado";
+                    return false;
+                }
+                if (idEmpleado <= 0)
+                {
+                    strError = "El empleado seleccionado no es valido";
+                    return false;
+                }
+
+                if (string.IsNullOrEmpty(Codigo.ToString()))
+                {
+                    strError = "Falta el codigo";
+                    return false;
+                }
+                if (Codigo <= 0)
+                {
+                    strError = "El codigo no es valido";
+                    return false;
+                }
+                return true;
+            }
+            catch(Exception ex)
             {
-                strError = "Falta el codigo";
+                strError = ex.Message;
                 return false;
             }
-            if (Codigo <= 0)
-            {
-                strError = "El codigo no es valido";
-                return false;
-            }
-            return true;
         }
 
         private bool Grabar()

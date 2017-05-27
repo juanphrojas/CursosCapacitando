@@ -39,3 +39,40 @@ c:\users\yeison\documents\visual studio 2015\Projects\WebCursosCapacitando\WebCu
 c:\users\yeison\documents\visual studio 2015\Projects\WebCursosCapacitando\WebCursosCapacitando\obj\Debug\WebCursosCapacitando.csprojResolveAssemblyReference.cache
 c:\users\yeison\documents\visual studio 2015\Projects\WebCursosCapacitando\WebCursosCapacitando\obj\Debug\WebCursosCapacitando.dll
 c:\users\yeison\documents\visual studio 2015\Projects\WebCursosCapacitando\WebCursosCapacitando\obj\Debug\WebCursosCapacitando.pdb
+C:\Users\JuanPablo\Documents\GitHub\CursosCapacitando\WebCursosCapacitando\WebCursosCapacitando\bin\ApplicationInsights.config
+C:\Users\JuanPablo\Documents\GitHub\CursosCapacitando\WebCursosCapacitando\WebCursosCapacitando\bin\roslyn\csc.exe
+C:\Users\JuanPablo\Documents\GitHub\CursosCapacitando\WebCursosCapacitando\WebCursosCapacitando\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
+C:\Users\JuanPablo\Documents\GitHub\CursosCapacitando\WebCursosCapacitando\WebCursosCapacitando\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
+C:\Users\JuanPablo\Documents\GitHub\CursosCapacitando\WebCursosCapacitando\WebCursosCapacitando\bin\roslyn\Microsoft.CodeAnalysis.dll
+C:\Users\JuanPablo\Documents\GitHub\CursosCapacitando\WebCursosCapacitando\WebCursosCapacitando\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
+C:\Users\JuanPablo\Documents\GitHub\CursosCapacitando\WebCursosCapacitando\WebCursosCapacitando\bin\roslyn\Microsoft.CSharp.Core.targets
+C:\Users\JuanPablo\Documents\GitHub\CursosCapacitando\WebCursosCapacitando\WebCursosCapacitando\bin\roslyn\Microsoft.VisualBasic.Core.targets
+C:\Users\JuanPablo\Documents\GitHub\CursosCapacitando\WebCursosCapacitando\WebCursosCapacitando\bin\roslyn\System.Collections.Immutable.dll
+C:\Users\JuanPablo\Documents\GitHub\CursosCapacitando\WebCursosCapacitando\WebCursosCapacitando\bin\roslyn\System.Reflection.Metadata.dll
+C:\Users\JuanPablo\Documents\GitHub\CursosCapacitando\WebCursosCapacitando\WebCursosCapacitando\bin\roslyn\vbc.exe
+C:\Users\JuanPablo\Documents\GitHub\CursosCapacitando\WebCursosCapacitando\WebCursosCapacitando\bin\roslyn\VBCSCompiler.exe
+C:\Users\JuanPablo\Documents\GitHub\CursosCapacitando\WebCursosCapacitando\WebCursosCapacitando\bin\roslyn\VBCSCompiler.exe.config
+C:\Users\JuanPablo\Documents\GitHub\CursosCapacitando\WebCursosCapacitando\WebCursosCapacitando\bin\WebCursosCapacitando.dll.config
+C:\Users\JuanPablo\Documents\GitHub\CursosCapacitando\WebCursosCapacitando\WebCursosCapacitando\bin\WebCursosCapacitando.dll
+C:\Users\JuanPablo\Documents\GitHub\CursosCapacitando\WebCursosCapacitando\WebCursosCapacitando\bin\WebCursosCapacitando.pdb
+C:\Users\JuanPablo\Documents\GitHub\CursosCapacitando\WebCursosCapacitando\WebCursosCapacitando\bin\Microsoft.AI.Agent.Intercept.dll
+C:\Users\JuanPablo\Documents\GitHub\CursosCapacitando\WebCursosCapacitando\WebCursosCapacitando\bin\Microsoft.AI.DependencyCollector.dll
+C:\Users\JuanPablo\Documents\GitHub\CursosCapacitando\WebCursosCapacitando\WebCursosCapacitando\bin\Microsoft.AI.PerfCounterCollector.dll
+C:\Users\JuanPablo\Documents\GitHub\CursosCapacitando\WebCursosCapacitando\WebCursosCapacitando\bin\Microsoft.AI.ServerTelemetryChannel.dll
+C:\Users\JuanPablo\Documents\GitHub\CursosCapacitando\WebCursosCapacitando\WebCursosCapacitando\bin\Microsoft.AI.Web.dll
+C:\Users\JuanPablo\Documents\GitHub\CursosCapacitando\WebCursosCapacitando\WebCursosCapacitando\bin\Microsoft.AI.WindowsServer.dll
+C:\Users\JuanPablo\Documents\GitHub\CursosCapacitando\WebCursosCapacitando\WebCursosCapacitando\bin\Microsoft.ApplicationInsights.dll
+C:\Users\JuanPablo\Documents\GitHub\CursosCapacitando\WebCursosCapacitando\WebCursosCapacitando\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
+C:\Users\JuanPablo\Documents\GitHub\CursosCapacitando\WebCursosCapacitando\WebCursosCapacitando\bin\LibConexionBD.pdb
+C:\Users\JuanPablo\Documents\GitHub\CursosCapacitando\WebCursosCapacitando\WebCursosCapacitando\bin\LibLlenarCombos.pdb
+C:\Users\JuanPablo\Documents\GitHub\CursosCapacitando\WebCursosCapacitando\WebCursosCapacitando\bin\LibLlenarGrids.pdb
+C:\Users\JuanPablo\Documents\GitHub\CursosCapacitando\WebCursosCapacitando\WebCursosCapacitando\bin\LibParametros.pdb
+C:\Users\JuanPablo\Documents\GitHub\CursosCapacitando\WebCursosCapacitando\WebCursosCapacitando\bin\Microsoft.AI.DependencyCollector.xml
+C:\Users\JuanPablo\Documents\GitHub\CursosCapacitando\WebCursosCapacitando\WebCursosCapacitando\bin\Microsoft.AI.ServerTelemetryChannel.xml
+C:\Users\JuanPablo\Documents\GitHub\CursosCapacitando\WebCursosCapacitando\WebCursosCapacitando\bin\Microsoft.AI.Web.xml
+C:\Users\JuanPablo\Documents\GitHub\CursosCapacitando\WebCursosCapacitando\WebCursosCapacitando\bin\Microsoft.AI.WindowsServer.xml
+C:\Users\JuanPablo\Documents\GitHub\CursosCapacitando\WebCursosCapacitando\WebCursosCapacitando\bin\Microsoft.ApplicationInsights.xml
+C:\Users\JuanPablo\Documents\GitHub\CursosCapacitando\WebCursosCapacitando\WebCursosCapacitando\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+C:\Users\JuanPablo\Documents\GitHub\CursosCapacitando\WebCursosCapacitando\WebCursosCapacitando\obj\Debug\WebCursosCapacitando.csprojResolveAssemblyReference.cache
+C:\Users\JuanPablo\Documents\GitHub\CursosCapacitando\WebCursosCapacitando\WebCursosCapacitando\obj\Debug\WebCursosCapacitando.dll
+C:\Users\JuanPablo\Documents\GitHub\CursosCapacitando\WebCursosCapacitando\WebCursosCapacitando\obj\Debug\WebCursosCapacitando.pdb

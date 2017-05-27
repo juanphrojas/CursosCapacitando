@@ -16,17 +16,18 @@ using System.Data;
 
 namespace lblCapacitando
 {
-    class clsEmpleado
+    class clsCurso
     {
         #region propiedades
+
         public int Codigo { get; set; }
-        public string Cedula { get; set; }
         public string Nombre { get; set; }
-        public string Apellido { get; set; }
-        public string Usuario { get; set; }
-        public string Contrasena { get; set; }
-        public int idCargo { get; set; }
-        public int Antiguedad { get; set; }
+        public float Costo  { get; set; }
+        public DateTime Fecha { get; set; }
+        public int Horas { get; set; }
+        public int idEmpleado { get; set; }
+        public List<int> ListaTemas { get; set; }
+        public int Tema { get; set; }
         private string strApp;
         private string strSQL;
         public string strError { get; private set; }
@@ -36,33 +37,31 @@ namespace lblCapacitando
         #endregion
 
         #region constructor
-        public clsEmpleado(string Aplicacion)
+        public clsCurso(string Aplicacion)
         {
             Codigo = 0;
-            Cedula = string.Empty;
             Nombre = string.Empty;
-            Apellido = string.Empty;
-            Usuario = string.Empty;
-            Contrasena = string.Empty;
-            idCargo = 0;
-            Antiguedad = 0;
+            Costo = 0;
+            Fecha = new DateTime();
+            Horas = 0;
+            idEmpleado = 0;
+            ListaTemas = null;
+            Tema = 0;
             strApp = Aplicacion;
             strSQL = string.Empty;
             strError = string.Empty;
         }
 
-        public clsEmpleado(string Aplicacion, int _Codigo, string _Cedula, string _Nombre, string _Apellido,  
-            string _Usuario, string _Contrasena, int _Cargo, int _Antiguedad)
+        public clsCurso(string Aplicacion, int _Codigo,  string _Nombre, int _Costo, DateTime _Fecha, int _Horas, int _Empleado, List<int> _ListaTemas)
         {
             Codigo = _Codigo;
-            Cedula = _Cedula;
             Nombre = _Nombre;
-            Apellido = _Apellido;
-            Usuario = _Usuario;
-            Contrasena = _Contrasena;
-            idCargo = _Cargo;
-            Antiguedad = _Antiguedad; 
-
+            Costo = _Costo;
+            Fecha = _Fecha;
+            Horas = _Horas;
+            idEmpleado = _Empleado;
+            ListaTemas = _ListaTemas;
+            Tema = 0;
             strApp = Aplicacion;
             strSQL = string.Empty;
             strError = string.Empty;
@@ -84,9 +83,9 @@ namespace lblCapacitando
         {
             try
             {
-                if (string.IsNullOrEmpty(Cedula))
+                if (Fecha <= DateTime.Today)
                 {
-                    strError = "Falta el numero de la cedula";
+                    strError = "Fecha no valida";
                     return false;
                 }
 
@@ -96,23 +95,16 @@ namespace lblCapacitando
                     return false;
                 }
 
-                if (string.IsNullOrEmpty(Apellido))
+                if (string.IsNullOrEmpty(idEmpleado.ToString()))
                 {
-                    strError = "Falta el apellido";
+                    strError = "Falta el empleado";
                     return false;
                 }
-                if (string.IsNullOrEmpty(Usuario))
+                if (idEmpleado <= 0)
                 {
-                    strError = "Falta el usuario";
+                    strError = "El empleado seleccionado no es valido";
                     return false;
                 }
-                if (string.IsNullOrEmpty(Contrasena))
-                {
-                    strError = "Falta la contraseña";
-                    return false;
-                }
-
-
 
                 if (string.IsNullOrEmpty(Codigo.ToString()))
                 {
@@ -124,33 +116,41 @@ namespace lblCapacitando
                     strError = "El codigo no es valido";
                     return false;
                 }
-                if (string.IsNullOrEmpty(idCargo.ToString()))
+                if (string.IsNullOrEmpty(Costo.ToString()))
                 {
-                    strError = "Falta el cargo";
+                    strError = "Falta el coto";
                     return false;
                 }
-                if (idCargo <= 0)
+                if (Costo <= 0)
                 {
-                    strError = "El cargo no es valido";
+                    strError = "El csoto no es valido";
                     return false;
                 }
-                if (string.IsNullOrEmpty(Antiguedad.ToString()))
+                if (string.IsNullOrEmpty(Horas.ToString()))
                 {
-                    strError = "Falta la antiguedad";
+                    strError = "Falta el numero de horas";
                     return false;
                 }
-                if (Antiguedad <= 0)
+                if (Horas <= 0)
                 {
-                    strError = "La antiguedad no es valida";
+                    strError = "El numero de horas no es valido";
+                    return false;
+                }
+                if (ListaTemas == null)
+                {
+                    strError = "Debe tener por lo menos un tema";
                     return false;
                 }
                 return true;
+
+                
             }
             catch (Exception ex)
             {
                 strError = ex.Message;
                 return false;
             }
+            
         }
 
         private bool Grabar()
@@ -184,40 +184,48 @@ namespace lblCapacitando
         #endregion
 
         #region metodos publicos
-        public bool BuscarEmpleado(string _Codigo)
+        public bool BuscarCurso(string _Codigo, GridView grid)
         {
             try
             {
-                strSQL = "exec USP_MEDicamento_BuscarXCodigo '" + _Codigo + "';";
-                clsConexionBD cnb = new clsConexionBD(strApp);
-                cnb.SQL = strSQL;
-                if (!cnb.Consultar(false))
+                strSQL = "exec USP_CURso_BuscarXCodigo '" + _Codigo + "';";
+                clsConexionBD objCnx = new clsConexionBD(strApp);
+                objCnx.SQL = strSQL;
+                if (!objCnx.LlenarDataSet(false))
                 {
-                    strError = cnb.Error;
-                    cnb.CerrarCnx();
-                    cnb = null;
+                    strError = objCnx.Error;
+                    objCnx.CerrarCnx();
+                    objCnx = null;
                     return false;
                 }
 
-                MyReader = cnb.DataReader_Lleno;
-                if (!MyReader.HasRows)// el hasrows es para decir si tiene o no tiene registro
+                Myds = objCnx.DataSet_Lleno;
+                objCnx = null;
+                //Leer desde el Primer DataTable
+                Mydt = Myds.Tables[0];
+                if (Mydt.Rows.Count <= 0)
                 {
-                    strError = "No existe registro para el codigo: " + _Codigo;
-                    cnb.CerrarCnx();
-                    cnb = null;
+                    strError = "No existe el cliente con cedula: " + _Codigo;
+                    Myds.Clear();
+                    Myds = null;
                     return false;
-                }
 
-                MyReader.Read();
-                Codigo = MyReader.GetInt32(0);
-                Cedula = MyReader.GetString(1);
-                Nombre = MyReader.GetString(2);
-                Apellido = MyReader.GetString(3);
-                Usuario = MyReader.GetString(4);
-                Contrasena = MyReader.GetString(5);
-                idCargo = MyReader.GetInt32(6);
-                Antiguedad = MyReader.GetInt32(7);
-                MyReader.Close();
+                }
+                //Recuperar info desde el Primer DataTable
+                foreach (DataRow dr in Mydt.Rows)
+                {
+                    Codigo = Convert.ToInt32(dr[0]);
+                    Nombre = dr[1].ToString();
+                    Fecha = Convert.ToDateTime(dr[2]);
+                    Costo = Convert.ToSingle( dr[3]);
+                    Horas = Convert.ToInt32(dr[4]);
+                    idEmpleado = Convert.ToInt32(dr[5]);
+                }
+                Mydt.Clear();
+                //Llenar el Grid
+                Mydt = Myds.Tables[1];
+                grid.DataSource = Mydt;
+                grid.DataBind();
                 return true;
             }
             catch (Exception ex)
@@ -233,9 +241,20 @@ namespace lblCapacitando
             {
                 if (!ValidarDatos())
                     return false;
-                strSQL = "exec USP_CLIente_Grabar '" + Cedula + "','" + Nombre + "','" + Apellido + "','" + idEmpleado + "';";
+
+                strSQL = "exec USP_CURso_Grabar '" + Nombre + "','" + Costo + "','" + Horas + "','" + idEmpleado + "';";
+
                 if (!Grabar())
                     return false;
+
+
+                for(int i = 0; i<ListaTemas.Count; i++)
+                {
+                    strSQL = "exec USP_CURso_GrabarTema '" + Codigo + "','" + ListaTemas[i] + "';";
+                    if (!Grabar())
+                        return false;
+
+                }
 
                 return true;
             }
@@ -252,8 +271,30 @@ namespace lblCapacitando
             {
                 if (!ValidarDatos())
                     return false;
-                strSQL = "exec USP_CLIente_Modificar '" + Codigo + "','" + Cedula + "','" + Nombre + "','" + Apellido + "','" + idEmpleado + "';";
+                strSQL = "exec USP_CURso_Modificar '" + Codigo + "','" + Nombre + "','" + Nombre + "','" + Costo + "','" + Horas + "','" + idEmpleado + "';";
                 return Grabar();
+            }
+            catch (Exception ex)
+            {
+                strError = ex.Message;
+                return false;
+            }
+        }
+
+        public bool AgregarTema()
+        {
+            try
+            {
+                if (!ValidarDatos())
+                    return false;
+
+                strSQL = "exec USP_CURso_GrabarTema '" + Codigo + "','" + Tema +  "';";
+
+                if (!Grabar())
+                    return false;
+                
+
+                return true;
             }
             catch (Exception ex)
             {
@@ -274,7 +315,7 @@ namespace lblCapacitando
                     return false;
                 }
 
-                strSQL = "exec USP_CLIente_BuscarGeneral;";
+                strSQL = "exec USP_CURso_BuscarGeneral;";
                 clsLlenarGrids objxx = new clsLlenarGrids(strApp);
                 objxx.SQL = strSQL;
                 if (!objxx.LlenarGrid_Web(grid))

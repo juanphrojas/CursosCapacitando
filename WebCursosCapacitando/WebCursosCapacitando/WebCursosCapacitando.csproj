@@ -131,10 +131,6 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="clsCliente.cs" />
-    <Compile Include="clsEmpleado.cs" />
-    <Compile Include="clsTema.cs" />
-    <Compile Include="clsTitulo.cs" />
     <Compile Include="frmMatriculas.aspx.cs">
       <DependentUpon>frmMatriculas.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
