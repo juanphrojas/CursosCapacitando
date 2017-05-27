@@ -1,0 +1,110 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="frmPrincipal.master.cs" Inherits="WebCursosCapacitando.frmPrincipal" %>
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title></title>
+    <asp:ContentPlaceHolder ID="head" runat="server">
+    </asp:ContentPlaceHolder>
+    <style type="text/css">
+        body {
+            margin: 0;
+            padding: 0;
+            border: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        .auto-style1 {
+            width: 100%;
+        }
+        .header {
+            background: #fedc7b;
+            box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14),
+                    0 1px 5px 0 rgba(0, 0, 0, 0.12),
+                    0 3px 1px -2px rgba(0, 0, 0, 0.2);
+        }
+
+        .auto-style2 {
+            text-align: center;
+            font-weight: 100;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: #2f3065;
+        }
+
+        .auto-style3 {
+            text-align: center;
+        }
+
+    </style>
+</head>
+<body>
+    <form id="formPrincipal" runat="server">
+
+        <table cellpadding="0" cellspacing="0" class="auto-style1">
+            <tr class="header">
+                <td>
+                    <table cellpadding="0" cellspacing="0" class="auto-style1">
+                        <tr>
+                            <td>&nbsp;</td>
+                        </tr>
+                        <tr>
+                            <td class="auto-style2">
+                                <asp:Image ID="imgLogo" runat="server" Height="150px" ImageUrl="~/imagenes/logo.jpg" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="auto-style2">
+                                <asp:ContentPlaceHolder ID="Encabezado" runat="server">
+                                    <p>
+                                        SISTEMA DE CURSOS CAPACITANDO</p>
+                                </asp:ContentPlaceHolder>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>&nbsp;</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <asp:ContentPlaceHolder ID="Menu" runat="server">
+                                    <asp:Menu ID="mnuPrincipal" runat="server" CssClass="auto-style2" ForeColor="White" Height="50px" Orientation="Horizontal" RenderingMode="Table" Width="100%" Font-Bold="False" Font-Italic="False">
+                                        <Items>
+                                            <asp:MenuItem Text="Clientes" Value="opcClientes" NavigateUrl="~/frmCliente.aspx"></asp:MenuItem>
+                                            <asp:MenuItem Text="Cursos" Value="opcCursos" NavigateUrl="~/frmCursos.aspx"></asp:MenuItem>
+                                            <asp:MenuItem NavigateUrl="~/frmInicio.aspx" Text="Programaciones" Value="opcProgramaciones"></asp:MenuItem>
+                                            <asp:MenuItem Text="Empleados" Value="opcEmpleados" NavigateUrl="~/frmEmpleados.aspx"></asp:MenuItem>
+                                            <asp:MenuItem Text="Matriculas" Value="opcMatriculas" NavigateUrl="~/frmMatriculas.aspx"></asp:MenuItem>
+                                            <asp:MenuItem NavigateUrl="~/frmTemas.aspx" Text="Temas" Value="opcTemas"></asp:MenuItem>
+                                        </Items>
+                                    </asp:Menu>
+                                </asp:ContentPlaceHolder>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                &nbsp;</td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <asp:ContentPlaceHolder ID="Cuerpo" runat="server">
+                        <div class="auto-style3">
+                            <asp:ScriptManager ID="ScriptManager1" runat="server">
+                            </asp:ScriptManager>
+                            <asp:UpdatePanel ID="UpdatePanel1" runat="server">
+                            </asp:UpdatePanel>
+                        </div>
+                    </asp:ContentPlaceHolder>
+                </td>
+            </tr>
+            <tr class="header">
+                <td>&nbsp;</td>
+            </tr>
+        </table>
+
+    </form>
+</body>
+</html>
