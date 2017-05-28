@@ -25,7 +25,12 @@ namespace lblCapacitando
         public DateTime FechaMatricula { get; set; }
         public List<int> ListaProgramacion  { get; set; }
         public int idProgramacion { get; set; }
-        public int idEmpleado { get; set; }
+        public int idEmpleadoMatricula { get; set; }
+        public int CodPago { get; set; }
+        public DateTime FechaPago { get; set; }
+        public int idEmpleadoPago { get; set; }
+        public int idFormaPago { get; set; }
+        public float MontoPago { get; set; }
         private string strApp;
         private string strSQL;
         public string strError { get; private set; }
@@ -38,11 +43,16 @@ namespace lblCapacitando
         public clsMatricula(string Aplicacion)
         {
             Codigo = 0;
-            idEmpleado = 0;
+            idEmpleadoMatricula = 0;
             idCliente = 0;
             FechaMatricula = new DateTime();
             idProgramacion = 0;
             ListaProgramacion = new List<int>();
+            CodPago = 0;
+            FechaPago = new DateTime();
+            idEmpleadoPago = 0;
+            idFormaPago = 0;
+            MontoPago = 0;
 
             strApp = Aplicacion;
             strSQL = string.Empty;
@@ -52,11 +62,16 @@ namespace lblCapacitando
         public clsMatricula(string Aplicacion,  int _idEmpleado, int _idCLiente, DateTime _FechaMatricula, List<int> _ListaProgramacion)
         {
             Codigo = 0;
-            idEmpleado = _idEmpleado;
+            idEmpleadoMatricula = _idEmpleado;
             idCliente = _idCLiente;
             FechaMatricula = _FechaMatricula;
             idProgramacion = 0;
             ListaProgramacion = _ListaProgramacion;
+            CodPago = 0;
+            FechaPago = new DateTime();
+            idEmpleadoPago = 0;
+            idFormaPago = 0;
+            MontoPago = 0;
 
             strApp = Aplicacion;
             strSQL = string.Empty;
@@ -69,7 +84,7 @@ namespace lblCapacitando
         {
             try
             {
-                if (idEmpleado <= 0)
+                if (idEmpleadoMatricula <= 0)
                 {
                     strError = "Empleado no valido";
                     return false;
@@ -97,7 +112,7 @@ namespace lblCapacitando
 
         }
 
-        private bool ValidarModificar()
+        private bool ValidarCodigoMatricula()
         {
             if (Codigo <= 0)
             {
@@ -105,6 +120,53 @@ namespace lblCapacitando
                 return false;
             }
             return true;
+        }
+
+        private bool ValidarProgrmacion()
+        {
+            if (idEmpleadoMatricula <= 0)
+            {
+                strError = "Empleado de matricula no valido";
+                return false;
+            }
+            if (idProgramacion <= 0)
+            {
+                strError = "Empleado de matricula no valido";
+                return false;
+            }
+            return true;
+        }
+
+        private bool ValidarPago()
+        {
+            try
+            {
+                if (idEmpleadoPago <= 0)
+                {
+                    strError = "Empleado de pago no valido";
+                    return false;
+                }
+                if (idFormaPago <= 0)
+                {
+                    strError = "Codigo de matricula no valido";
+                    return false;
+                }
+                if (MontoPago <= 0)
+                {
+                    strError = "Monto de matricula no valido";
+                    return false;
+                }
+
+                return true;
+
+
+            }
+            catch (Exception ex)
+            {
+                strError = ex.Message;
+                return false;
+            }
+
         }
 
         private bool ValidarAplicacion()
@@ -233,7 +295,7 @@ namespace lblCapacitando
             {
                 if (!ValidarDatos())
                     return false;
-                if (!ValidarModificar())
+                if (!ValidarCodigoMatricula())
                     return false;
                 strSQL = "exec USP_CURso_Modificar '" + Codigo + "','" + idCliente + "','" + FechaMatricula +"';";
                 return Grabar();
@@ -245,14 +307,38 @@ namespace lblCapacitando
             }
         }
 
-        public bool AgregarTema()
+        public bool AgregarProgramacion()
         {
             try
             {
-                if (!ValidarDatos())
+                if (!ValidarCodigoMatricula())
                     return false;
 
-                strSQL = "exec USP_MATricula_GrabarProgramacion '" + Codigo + "','" + idProgramacion + "','" + idEmpleado + "';";
+                strSQL = "exec USP_MATricula_GrabarProgramacion '" + Codigo + "','" + idProgramacion + "','" + idEmpleadoMatricula + "';";
+
+                if (!Grabar())
+                    return false;
+
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                strError = ex.Message;
+                return false;
+            }
+        }
+
+        public bool AgregarPago()
+        {
+            try
+            {
+                if (!ValidarCodigoMatricula())
+                    return false;
+                if (!ValidarPago())
+                    return false;
+
+                strSQL = "exec USP_MATricula_GrabarPago '" + idEmpleadoPago + "','" + Codigo + "','" + idFormaPago + "','" + MontoPago + "';";
 
                 if (!Grabar())
                     return false;
@@ -296,6 +382,40 @@ namespace lblCapacitando
             {
                 strError = ex.Message;
                 return false;
+            }
+        }
+
+        public bool LlenarComboFromaPago(DropDownList Combo)
+        {
+            try
+            {
+                if (!ValidarAplicacion())
+                    return false;
+                if (Combo == null)
+                {
+                    strError = "Sin Combo a Llenar";
+                    return false;
+                }
+                strSQL = "exec USP_MATricula_LlenarComboFormaPago;";
+                clsLlenarCombos objXX = new clsLlenarCombos(strApp);
+                objXX.SQL = strSQL;
+                objXX.CampoID = "Clave";
+                objXX.CampoTexto = "Nombre";
+                if (!objXX.LlenarCombo_Web(Combo))
+                {
+                    strError = objXX.Error;
+                    objXX = null;
+                    return false;
+                }
+                objXX = null;
+                return true;
+
+            }
+            catch (Exception ex)
+            {
+                strError = ex.Message;
+                return false;
+
             }
         }
         #endregion
