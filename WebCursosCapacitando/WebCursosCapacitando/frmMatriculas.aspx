@@ -21,7 +21,7 @@
                                 <asp:MenuItem Text="Agregar" Value="opcAgregar"></asp:MenuItem>
                                 <asp:MenuItem Text="Modificar" Value="opcModificar"></asp:MenuItem>
                                 <asp:MenuItem Text="Buscar" Value="opcBuscar"></asp:MenuItem>
-                                <asp:MenuItem Text="Pago" Value="opcPago"></asp:MenuItem>
+                                <asp:MenuItem Text="Registrar Pago" Value="opcPago"></asp:MenuItem>
                             </Items>
                             <StaticHoverStyle BackColor="#FFFF99" />
                             <StaticMenuItemStyle ForeColor="#838383" HorizontalPadding="20px" VerticalPadding="10px" />
