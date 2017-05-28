@@ -117,8 +117,7 @@
                                 <tr>
                                     <td class="auto-style14" colspan="2">Empleado: </td>
                                     <td>
-                                        <asp:DropDownList ID="ddlEmpleado" runat="server" Height="30px" Width="360px">
-                                        </asp:DropDownList>
+                                        <asp:TextBox ID="txtEmpleado" runat="server" Height="30px" Width="231px"></asp:TextBox>
                                     </td>
                                 </tr>
                                 <tr>

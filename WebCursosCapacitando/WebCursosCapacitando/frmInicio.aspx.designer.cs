@@ -103,13 +103,13 @@ namespace WebCursosCapacitando {
         protected global::System.Web.UI.WebControls.TextBox txtCupos;
         
         /// <summary>
-        /// Control ddlEmpleado.
+        /// Control txtEmpleado.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlEmpleado;
+        protected global::System.Web.UI.WebControls.TextBox txtEmpleado;
         
         /// <summary>
         /// Control PanelAccionesProgram.

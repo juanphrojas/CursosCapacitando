@@ -76,8 +76,7 @@
                         </td>
                         <td><strong>Empleado:</strong></td>
                         <td>
-                            <asp:DropDownList ID="ddlEmpleado" runat="server" Width="100%" Height="25px">
-                            </asp:DropDownList>
+                            <asp:TextBox ID="txtEmpleado" runat="server" Height="20px" Width="269px"></asp:TextBox>
                         </td>
                     </tr>
                     <tr>
