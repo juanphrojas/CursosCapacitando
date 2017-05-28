@@ -106,7 +106,6 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="frmPagos.aspx" />
     <Content Include="frmMatriculas.aspx" />
     <Content Include="frmCursos.aspx" />
     <Content Include="frmTemas.aspx" />
@@ -132,13 +131,6 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="frmPagos.aspx.cs">
-      <DependentUpon>frmPagos.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="frmPagos.aspx.designer.cs">
-      <DependentUpon>frmPagos.aspx</DependentUpon>
-    </Compile>
     <Compile Include="frmMatriculas.aspx.cs">
       <DependentUpon>frmMatriculas.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
