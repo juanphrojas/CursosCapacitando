@@ -91,27 +91,15 @@ namespace lblCapacitando
                     return false;
                 }
 
-                if (string.IsNullOrEmpty(idEmpleado.ToString()))
-                {
-                    strError = "Falta el empleado";
-                    return false;
-                }
+                
                 if (idEmpleado <= 0)
                 {
                     strError = "El empleado seleccionado no es valido";
                     return false;
                 }
 
-                if (string.IsNullOrEmpty(Codigo.ToString()))
-                {
-                    strError = "Falta el codigo";
-                    return false;
-                }
-                if (Codigo <= 0)
-                {
-                    strError = "El codigo no es valido";
-                    return false;
-                }
+                
+                
                 return true;
             }
             catch(Exception ex)
@@ -119,6 +107,16 @@ namespace lblCapacitando
                 strError = ex.Message;
                 return false;
             }
+        }
+
+        private bool ValidarModificar()
+        {
+            if (Codigo <= 0)
+            {
+                strError = "El codigo no es valido";
+                return false;
+            }
+            return true;
         }
 
         private bool Grabar()
@@ -227,6 +225,9 @@ namespace lblCapacitando
             {
                 if (!ValidarDatos())
                     return false;
+                if (!ValidarModificar())
+                    return false;
+                
                 strSQL = "exec USP_CLIente_Modificar '" + Codigo + "','" + Cedula + "','" + Nombre + "','" + Apellido + "','" + idEmpleado  + "';";
                 return Grabar();
             }

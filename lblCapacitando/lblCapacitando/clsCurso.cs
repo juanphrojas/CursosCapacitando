@@ -27,7 +27,7 @@ namespace lblCapacitando
         public int Horas { get; set; }
         public int idEmpleado { get; set; }
         public List<int> ListaTemas { get; set; }
-        public int Tema { get; set; }
+        public int idTema { get; set; }
         private string strApp;
         private string strSQL;
         public string strError { get; private set; }
@@ -46,7 +46,7 @@ namespace lblCapacitando
             Horas = 0;
             idEmpleado = 0;
             ListaTemas = null;
-            Tema = 0;
+            idTema = 0;
             strApp = Aplicacion;
             strSQL = string.Empty;
             strError = string.Empty;
@@ -61,7 +61,7 @@ namespace lblCapacitando
             Horas = _Horas;
             idEmpleado = _Empleado;
             ListaTemas = _ListaTemas;
-            Tema = 0;
+            idTema = 0;
             strApp = Aplicacion;
             strSQL = string.Empty;
             strError = string.Empty;
@@ -95,42 +95,19 @@ namespace lblCapacitando
                     return false;
                 }
 
-                if (string.IsNullOrEmpty(idEmpleado.ToString()))
-                {
-                    strError = "Falta el empleado";
-                    return false;
-                }
+                
                 if (idEmpleado <= 0)
                 {
                     strError = "El empleado seleccionado no es valido";
                     return false;
                 }
-
-                if (string.IsNullOrEmpty(Codigo.ToString()))
-                {
-                    strError = "Falta el codigo";
-                    return false;
-                }
-                if (Codigo <= 0)
-                {
-                    strError = "El codigo no es valido";
-                    return false;
-                }
-                if (string.IsNullOrEmpty(Costo.ToString()))
-                {
-                    strError = "Falta el coto";
-                    return false;
-                }
+        
                 if (Costo <= 0)
                 {
                     strError = "El csoto no es valido";
                     return false;
                 }
-                if (string.IsNullOrEmpty(Horas.ToString()))
-                {
-                    strError = "Falta el numero de horas";
-                    return false;
-                }
+               
                 if (Horas <= 0)
                 {
                     strError = "El numero de horas no es valido";
@@ -151,6 +128,16 @@ namespace lblCapacitando
                 return false;
             }
             
+        }
+
+        private bool ValidarModificar()
+        {
+            if (Codigo <= 0)
+            {
+                strError = "El codigo no es valido";
+                return false;
+            }
+            return true;
         }
 
         private bool Grabar()
@@ -271,6 +258,9 @@ namespace lblCapacitando
             {
                 if (!ValidarDatos())
                     return false;
+                if (!ValidarModificar())
+                    return false;
+                
                 strSQL = "exec USP_CURso_Modificar '" + Codigo + "','" + Nombre + "','" + Nombre + "','" + Costo + "','" + Horas + "','" + idEmpleado + "';";
                 return Grabar();
             }
@@ -288,7 +278,7 @@ namespace lblCapacitando
                 if (!ValidarDatos())
                     return false;
 
-                strSQL = "exec USP_CURso_GrabarTema '" + Codigo + "','" + Tema +  "';";
+                strSQL = "exec USP_CURso_GrabarTema '" + Codigo + "','" + idTema +  "';";
 
                 if (!Grabar())
                     return false;
@@ -332,6 +322,40 @@ namespace lblCapacitando
             {
                 strError = ex.Message;
                 return false;
+            }
+        }
+
+        public bool LlenarCombo(DropDownList Combo)
+        {
+            try
+            {
+                if (!ValidarAplicacion())
+                    return false;
+                if (Combo == null)
+                {
+                    strError = "Sin Combo a Llenar";
+                    return false;
+                }
+                strSQL = "exec USP_CURso_LlenarCombo;";
+                clsLlenarCombos objXX = new clsLlenarCombos(strApp);
+                objXX.SQL = strSQL;
+                objXX.CampoID = "Clave";
+                objXX.CampoTexto = "Nombre";
+                if (!objXX.LlenarCombo_Web(Combo))
+                {
+                    strError = objXX.Error;
+                    objXX = null;
+                    return false;
+                }
+                objXX = null;
+                return true;
+
+            }
+            catch (Exception ex)
+            {
+                strError = ex.Message;
+                return false;
+
             }
         }
         #endregion

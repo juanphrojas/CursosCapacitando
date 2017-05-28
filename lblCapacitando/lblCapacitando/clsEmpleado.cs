@@ -112,33 +112,12 @@ namespace lblCapacitando
                     return false;
                 }
 
-
-
-                if (string.IsNullOrEmpty(Codigo.ToString()))
-                {
-                    strError = "Falta el codigo";
-                    return false;
-                }
-                if (Codigo <= 0)
-                {
-                    strError = "El codigo no es valido";
-                    return false;
-                }
-                if (string.IsNullOrEmpty(idCargo.ToString()))
-                {
-                    strError = "Falta el cargo";
-                    return false;
-                }
                 if (idCargo <= 0)
                 {
                     strError = "El cargo no es valido";
                     return false;
                 }
-                if (string.IsNullOrEmpty(Antiguedad.ToString()))
-                {
-                    strError = "Falta la antiguedad";
-                    return false;
-                }
+                
                 if (Antiguedad <= 0)
                 {
                     strError = "La antiguedad no es valida";
@@ -153,6 +132,17 @@ namespace lblCapacitando
             }
         }
 
+        private bool ValidarModificar()
+        {
+            if (Codigo <= 0)
+            {
+                strError = "El codigo no es valido";
+                return false;
+            }
+            return true;
+        }
+
+            
         private bool Grabar()
         {
             try
@@ -252,6 +242,8 @@ namespace lblCapacitando
             {
                 if (!ValidarDatos())
                     return false;
+                if (!ValidarModificar())
+                    return false;
                 strSQL = "exec USP_CLIente_Modificar '" + Codigo + "','" + Cedula + "','" + Nombre + "','" + Apellido + "','" + idEmpleado + "';";
                 return Grabar();
             }
@@ -291,6 +283,74 @@ namespace lblCapacitando
             {
                 strError = ex.Message;
                 return false;
+            }
+        }
+
+        public bool LlenarComboCargo(DropDownList Combo)
+        {
+            try
+            {
+                if (!ValidarAplicacion())
+                    return false;
+                if (Combo == null)
+                {
+                    strError = "Sin Combo a Llenar";
+                    return false;
+                }
+                strSQL = "exec USP_EMPleado_LlenarComboCargo;";
+                clsLlenarCombos objXX = new clsLlenarCombos(strApp);
+                objXX.SQL = strSQL;
+                objXX.CampoID = "Clave";
+                objXX.CampoTexto = "Nombre";
+                if (!objXX.LlenarCombo_Web(Combo))
+                {
+                    strError = objXX.Error;
+                    objXX = null;
+                    return false;
+                }
+                objXX = null;
+                return true;
+
+            }
+            catch (Exception ex)
+            {
+                strError = ex.Message;
+                return false;
+
+            }
+        }
+
+        public bool LlenarComboDocente(DropDownList Combo)
+        {
+            try
+            {
+                if (!ValidarAplicacion())
+                    return false;
+                if (Combo == null)
+                {
+                    strError = "Sin Combo a Llenar";
+                    return false;
+                }
+                strSQL = "exec USP_EMPleado_LlenarComboDocente;";
+                clsLlenarCombos objXX = new clsLlenarCombos(strApp);
+                objXX.SQL = strSQL;
+                objXX.CampoID = "Clave";
+                objXX.CampoTexto = "Nombre";
+                if (!objXX.LlenarCombo_Web(Combo))
+                {
+                    strError = objXX.Error;
+                    objXX = null;
+                    return false;
+                }
+                objXX = null;
+                return true;
+
+            }
+            catch (Exception ex)
+            {
+                strError = ex.Message;
+                return false;
+
             }
         }
         #endregion

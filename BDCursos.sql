@@ -308,7 +308,7 @@ BEGIN
 				return
 				end
 			commit transaction tx
-			select @@IDENTITY as  Rpta
+			select @Codigo as  Rpta
 			return
 END
 GO
@@ -416,8 +416,34 @@ BEGIN
 				return
 				end
 			commit transaction tx
-			select @@IDENTITY as  Rpta
+			select @Codigo as  Rpta
 			return
+END
+GO
+
+CREATE PROCEDURE USP_EMPleado_LlenarComboDocente
+
+AS
+BEGIN
+	
+	SELECT intCod_EMP as Clave, strApellido_EMP+' '+strNombre_EMP as Dato
+
+	from tblEMPleado where idCAR_EMP = 1
+	order by strApellido_EMP
+	
+END
+GO
+
+CREATE PROCEDURE USP_EMPleado_LlenarComboCargo
+
+AS
+BEGIN
+	
+	SELECT intCod_CAR as Clave, strDescripcion_CAR as Dato
+
+	from tblCARgo
+	order by strDescripcion_CAR
+	
 END
 GO
 
@@ -503,13 +529,25 @@ BEGIN
 				return
 				end
 			commit transaction tx
-			select @@IDENTITY as  Rpta
+			select @Codigo as  Rpta
 			return
 END
 GO
 
+CREATE PROCEDURE USP_TEMa_LlenarCombo
+
+AS
+BEGIN
+	
+	SELECT intCod_TEM as Clave, strNombre_TEM as Dato
+
+	from tblTEMa
+	order by strNombre_TEM
+	
+END
+GO
 -------------------------------------------------------------------------
-----------------------------------TEMA-----------------------------------
+----------------------------------CURSO----------------------------------
 -------------------------------------------------------------------------
 
 CREATE PROCEDURE USP_CURso_BuscarGeneral
@@ -537,7 +575,7 @@ BEGIN
 				strDescripcion_TEM as DescripcionTema
 		FROM tblTEMa inner join tblCUrso_TEma on idTEM_CUTE = intCod_TEM
 		inner join tblCURso on idCUR_CUTE = intCod_CUR
-		WHERE intCod_CUR = @Codigo
+		WHERE intCod_CUR = 1
 	end
 
 END
@@ -619,7 +657,7 @@ BEGIN
 				return
 				end
 			commit transaction tx
-			select @@IDENTITY as  Rpta
+			select @Codigo as  Rpta
 			return
 END
 GO
@@ -652,5 +690,283 @@ BEGIN
 		
 END
 GO
---exec USP_CURso_GrabarTema 1,2;
+--exec USP_CURso_GrabarTema 1,3;
 
+CREATE PROCEDURE USP_CURso_LlenarCombo
+
+AS
+BEGIN
+	
+	SELECT intCod_CUR as Clave, strNombre_CUR as Dato
+
+	from tblCURso
+	order by strNombre_CUR
+	
+END
+GO
+
+-------------------------------------------------------------------------
+-------------------------------PROGRAMACION------------------------------
+-------------------------------------------------------------------------
+
+CREATE PROCEDURE USP_PROgramacion_BuscarGeneral
+	AS
+		BEGIN
+			SELECT intCod_PRO as Clave,
+						strNombre_CUR as Curso,
+						intCupos_PRO as Cupos,
+						CONVERT (varchar(10), dtmFechaInicio_PRO, 103) as FechaInicio,
+						strEstado_PRO as Estado,
+						intCupos_PRO as Cupos,
+						strNombre_EMP as NombreDocente,
+						strApellido_EMP as ApellidoDocente
+			FROM tblPROgramacion inner join tblCURso on idCUR_PRO = intCod_CUR
+			inner join tblEMPleado on idDocente_PRO = intCod_EMP
+			ORDER BY strNombre_CUR
+		END
+GO
+
+CREATE PROCEDURE USP_PROgramacion_BuscarGrid
+@Codigo int
+AS
+BEGIN
+	begin
+		SELECT intCod_TEM as ClaveTema,
+				strNombre_TEM as Tema,
+				strDescripcion_TEM as DescripcionTema			
+		FROM tblTEMa inner join tblCUrso_TEma on idTEM_CUTE = intCod_TEM
+		inner join tblCURso on idCUR_CUTE = intCod_CUR
+		inner join tblPROgramacion on idCUR_PRO = intCod_CUR
+		WHERE intCod_PRO = @Codigo
+	end
+
+END
+GO
+
+alter PROCEDURE USP_PROgramacion_BuscarXCodigo
+@Codigo int
+
+AS
+	BEGIN
+			SELECT intCod_PRO as Clave,
+						idCUR_PRO as Curso,
+						intCupos_PRO as Cupos,
+						CONVERT (varchar(10), dtmFechaInicio_PRO, 103) as FechaInicio,
+						strEstado_PRO as Estado,
+						idDocente_PRO as Docente
+			FROM tblPROgramacion
+			WHERE intCod_PRO = @Codigo
+			EXEC USP_PROgramacion_BuscarGrid @Codigo
+  END
+GO
+
+--exec USP_PROgramacion_BuscarXCodigo 1;
+
+CREATE PROCEDURE USP_PROgramacion_Grabar
+	@idCuso int,
+	@idEmpleado int,
+	@FechaInicio datetime,
+	@Estado varchar(20),
+	@Cupos int,
+	@idDocente int
+AS
+	BEGIN
+		begin transaction tx
+		insert into tblPROgramacion values (@idCuso,@idEmpleado,@FechaInicio,@Estado,@Cupos,@idDocente);
+		if (@@ERROR > 0 )
+			begin 
+				rollback transaction tx
+				select 0 as Rpta
+				return 
+				end
+			commit transaction tx
+		SELECT @@IDENTITY as Rpta
+		return
+	
+	
+	END
+GO
+
+CREATE PROCEDURE USP_PROgramacion_Modificar
+	@Codigo int,
+	@idCuso int,
+	@idEmpleado int,
+	@FechaInicio datetime,
+	@Estado varchar(20),
+	@Cupos int,
+	@idDocente int
+
+AS
+BEGIN
+	if not exists (select intCod_PRO from tblPROgramacion where intCod_PRO = @Codigo)
+		begin
+			select -1 as Rpta
+			return
+		end
+	else
+		begin transaction tx
+		update tblPROgramacion
+			set idCUR_PRO = @idCuso,
+				idEMP_PRO=@idEmpleado,
+				dtmFechaInicio_PRO = @FechaInicio,
+				strEstado_PRO=@Estado,
+				intCupos_PRO = @Cupos,
+				idDocente_PRO = @idDocente
+			where intCod_PRO = @Codigo
+			if (@@ERROR>0)
+				begin 
+				rollback transaction tx
+				select 0 as Rpta
+				return
+				end
+			commit transaction tx
+			select @Codigo as  Rpta
+			return
+END
+GO
+
+CREATE PROCEDURE USP_PROgramacion_LlenarComboXCurso
+@idCurso int
+AS
+BEGIN
+	
+	SELECT intCod_PRO as Clave, CONVERT (varchar(10), dtmFechaInicio_PRO, 103) as Dato
+
+	from tblPROgramacion inner join tblCURso on idCUR_PRO = intCod_CUR
+	where intCod_CUR = @idCurso
+	order by strNombre_CUR
+	
+END
+GO
+
+-------------------------------------------------------------------------
+----------------------------------MATRICULA------------------------------
+-------------------------------------------------------------------------
+
+CREATE PROCEDURE USP_MATricula_BuscarGeneral
+	AS
+		BEGIN
+			SELECT intCod_MAT as Clave,
+					strApellido_CLI+' '+ strNombre_CLI as Cliente,
+					CONVERT (varchar(10), dtmFecha_MAT, 103) as FechaMatricula
+			FROM tblMATricula inner join tblCLIente on idCLI_MAT = intCod_CLI
+			ORDER BY strApellido_CLI
+		END
+GO
+
+CREATE PROCEDURE USP_MATricula_BuscarGrid
+@Codigo int
+AS
+BEGIN
+	begin
+		SELECT intCod_PRO as ClaveProgramacion,
+				strNombre_CUR as Curso,
+				CONVERT (varchar(10), dtmFechaInicio_PRO, 103) as FechaInicio,
+				strEstado_PRO as EstadoProgramacion			
+		FROM tblMAtricula inner join tblDEtalle_MAtricula on idMAT_DEMA = intCod_MAT
+		inner join tblPROgramacion on idPRO_DEMA = intCod_PRO
+		inner join tblCURso on idCUR_PRO = intCod_CUR
+		WHERE intCod_MAT = @Codigo
+	end
+
+END
+GO
+
+CREATE PROCEDURE USP_MATricula_BuscarXCodigo
+@Codigo int
+
+AS
+	BEGIN
+			SELECT intCod_MAT as Clave,
+					strApellido_CLI+' '+ strNombre_CLI as Cliente,
+					CONVERT (varchar(10), dtmFecha_MAT, 103) as FechaMatricula,
+					idEMP_DEMA as empleado
+			FROM tblMATricula inner join tblCLIente on idCLI_MAT = intCod_CLI
+			inner join tblDEtalle_MAtricula on idMAT_DEMA = intCod_MAT
+			WHERE intCod_MAT = @Codigo
+			EXEC USP_MATricula_BuscarGrid @Codigo
+  END
+GO
+
+--exec USP_MATricula_BuscarXCodigo 1;
+
+CREATE PROCEDURE USP_MATricula_Grabar
+	@idCliente int,
+	@FechaMatricula datetime
+AS
+	BEGIN
+		begin transaction tx
+		insert into tblMATricula values (@idCliente,@FechaMatricula);
+		if (@@ERROR > 0 )
+			begin 
+				rollback transaction tx
+				select 0 as Rpta
+				return 
+				end
+			commit transaction tx
+		SELECT @@IDENTITY as Rpta
+		return
+	
+	
+	END
+GO
+
+CREATE PROCEDURE USP_MATricula_GrabarProgramacion
+	@idMatricula int,
+	@idPograma int,
+	@idEmpleado int
+AS
+BEGIN
+	if exists (select intCod_DEMA from tblDEtalle_MAtricula where idMAT_DEMA =idMAT_DEMA and idPRO_DEMA = @idPograma)
+		begin 
+			select -1 as Rpta
+			return 
+		end
+	else
+		
+		begin
+		begin transaction tx
+			insert into tblDEtalle_MAtricula values (@idMatricula, @idEmpleado, @idPograma)
+			if (@@ERROR>0)
+				begin 
+				rollback transaction tx
+				select 0 as Rpta
+				return
+			end
+		commit transaction tx
+		select @idMatricula as Rpta
+		return
+		end
+		
+END
+GO
+
+CREATE PROCEDURE USP_MATricula_Modificar
+	@Codigo int,
+	@idCliente int,
+	@FechaMatricula datetime
+
+AS
+BEGIN
+	if not exists (select intCod_MAT from tblMATricula where intCod_MAT = @Codigo)
+		begin
+			select -1 as Rpta
+			return
+		end
+	else
+		begin transaction tx
+		update tblMATricula
+			set idCLI_MAT = @idCliente,
+				dtmFecha_MAT = @FechaMatricula
+			where intCod_MAT = @Codigo
+			if (@@ERROR>0)
+				begin 
+				rollback transaction tx
+				select 0 as Rpta
+				return
+				end
+			commit transaction tx
+			select @Codigo as  Rpta
+			return
+END
+GO

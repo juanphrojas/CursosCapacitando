@@ -16,12 +16,16 @@ using System.Data;
 
 namespace lblCapacitando
 {
-    class clsTema
+    class clsPrograma
     {
         #region propiedades
         public int Codigo { get; set; }
-        public string Nombre { get; set; }
-        public string Descripcion { get; set; }
+        public int idCurso { get; set; }
+        public int idEmpleado { get; set; }
+        public int idDocente { get; set; }
+        public DateTime FechaInicio { get; set; }
+        public string Estado { get; set; }
+        public int Cupos { get; set; }
         private string strApp;
         private string strSQL;
         public string strError { get; private set; }
@@ -31,21 +35,29 @@ namespace lblCapacitando
         #endregion
 
         #region constructor
-        public clsTema(string Aplicacion)
+        public clsPrograma(string Aplicacion)
         {
             Codigo = 0;
-            Nombre = string.Empty;
-            Descripcion = string.Empty;
+            idCurso = 0;
+            idEmpleado = 0;
+            idDocente = 0;
+            FechaInicio = new DateTime();
+            Estado = string.Empty;
+            Cupos = 0;
             strApp = Aplicacion;
             strSQL = string.Empty;
             strError = string.Empty;
         }
 
-        public clsTema(string Aplicacion, int _Codigo, string _Nombre, string _Descripcion)
+        public clsPrograma(string Aplicacion, int _Codigo, int _idCurso, int _idEmpleado, int _idDocente, DateTime _FechaInicio, string _Estado, int _Cupos)
         {
             Codigo = _Codigo;
-            Nombre = _Nombre;
-            Descripcion = _Descripcion;
+            idCurso = _idCurso;
+            idEmpleado = _idEmpleado;
+            idDocente = _idDocente;
+            FechaInicio = _FechaInicio;
+            Estado = _Estado;
+            Cupos = _Cupos;
             strApp = Aplicacion;
             strSQL = string.Empty;
             strError = string.Empty;
@@ -67,22 +79,42 @@ namespace lblCapacitando
         {
             try
             {
-                if (string.IsNullOrEmpty(Nombre))
+                if (string.IsNullOrEmpty(Estado))
                 {
-                    strError = "Falta el nombre";
+                    strError = "El estado no es valido";
                     return false;
                 }
-
-
-                if (string.IsNullOrEmpty(Descripcion))
+                if (Cupos <= 0)
                 {
-                    strError = "Falta la descripcion";
+                    strError = "la cantidad de cupos no es valida";
                     return false;
                 }
-
-
+                if (FechaInicio <= DateTime.Now)
+                {
+                    strError = "La fecha de incio no es valida";
+                    return false;
+                }
+                if (idDocente <= 0)
+                {
+                    strError = "El docente seleccionado no es valido";
+                    return false;
+                }
+                if (idEmpleado <= 0)
+                {
+                    strError = "El enpleado no es valido";
+                    return false;
+                }
+                if (idCurso <= 0)
+                {
+                    strError = "El curso seleccionado no es valido";
+                    return false;
+                }
+                if (Codigo <= 0)
+                {
+                    strError = "El codigo no es valido";
+                    return false;
+                }
                 return true;
-
             }
             catch (Exception ex)
             {
@@ -132,35 +164,48 @@ namespace lblCapacitando
         #endregion
 
         #region metodos publicos
-        public bool BuscarTema(string _Codigo)
+        public bool BuscarPrograma(string _Codigo, GridView grid)
         {
             try
             {
-                strSQL = "exec USP_TIpoMAscota_BuscarXCodigo '" + _Codigo + "';";
-                clsConexionBD cnb = new clsConexionBD(strApp);
-                cnb.SQL = strSQL;
-                if (!cnb.Consultar(false))
+                strSQL = "exec USP_PROgramacion_BuscarXCodigo '" + _Codigo + "';";
+                clsConexionBD objCnx = new clsConexionBD(strApp);
+                objCnx.SQL = strSQL;
+                if (!objCnx.LlenarDataSet(false))
                 {
-                    strError = cnb.Error;
-                    cnb.CerrarCnx();
-                    cnb = null;
+                    strError = objCnx.Error;
+                    objCnx.CerrarCnx();
+                    objCnx = null;
                     return false;
                 }
 
-                MyReader = cnb.DataReader_Lleno;
-                if (!MyReader.HasRows)// el hasrows es para decir si tiene o no tiene registro
+                Myds = objCnx.DataSet_Lleno;
+                objCnx = null;
+                //Leer desde el Primer DataTable
+                Mydt = Myds.Tables[0];
+                if (Mydt.Rows.Count <= 0)
                 {
-                    strError = "No existe registro para el codigo: " + _Codigo;
-                    cnb.CerrarCnx();
-                    cnb = null;
+                    strError = "No existe el cliente con cedula: " + _Codigo;
+                    Myds.Clear();
+                    Myds = null;
                     return false;
-                }
 
-                MyReader.Read();
-                Codigo = MyReader.GetInt32(0);
-                Nombre = MyReader.GetString(1);
-                Descripcion = MyReader.GetString(2);
-                MyReader.Close();
+                }
+                //Recuperar info desde el Primer DataTable
+                foreach (DataRow dr in Mydt.Rows)
+                {
+                    Codigo = Convert.ToInt32(dr[0]);
+                    idCurso = Convert.ToInt32(dr[1]);
+                    Cupos = Convert.ToInt32(dr[2]);
+                    FechaInicio = Convert.ToDateTime(dr[3]);
+                    Estado = dr[4].ToString();
+                    idDocente = Convert.ToInt32(dr[5]);
+                }
+                Mydt.Clear();
+                //Llenar el Grid
+                Mydt = Myds.Tables[1];
+                grid.DataSource = Mydt;
+                grid.DataBind();
                 return true;
             }
             catch (Exception ex)
@@ -176,7 +221,7 @@ namespace lblCapacitando
             {
                 if (!ValidarDatos())
                     return false;
-                strSQL = "exec USP_TIpoMAscota_Grabar '" + Tipo + "','" + idEmpleado + "';";
+                strSQL = "exec USP_PROgramacion_Grabar '" + idCurso + "','" + idEmpleado + "'," + FechaInicio + ",'" + Estado + "','" + Cupos + "','" + idDocente + "';";
                 if (!Grabar())
                     return false;
 
@@ -197,7 +242,7 @@ namespace lblCapacitando
                     return false;
                 if (!ValidarModificar())
                     return false;
-                strSQL = "exec USP_TIpoMAscota_Modificar '" + Codigo + "','" + Tipo + "','" + idEmpleado + "';";
+                strSQL = "exec USP_CLIente_Modificar '" + Codigo + "','" + idCurso + "','" + idEmpleado + "'," + FechaInicio + ",'" + Estado + "','" + Cupos + "','" + idDocente + "';";
                 return Grabar();
             }
             catch (Exception ex)
@@ -219,7 +264,7 @@ namespace lblCapacitando
                     return false;
                 }
 
-                strSQL = "exec USP_TIpoMAscota_BuscarGeneral;";
+                strSQL = "exec USP_PROgramacion_BuscarGeneral;";
                 clsLlenarGrids objxx = new clsLlenarGrids(strApp);
                 objxx.SQL = strSQL;
                 if (!objxx.LlenarGrid_Web(grid))
@@ -239,7 +284,7 @@ namespace lblCapacitando
             }
         }
 
-        public bool LlenarCombo(DropDownList Combo)
+        public bool LlenarComboProgramacionCurso(DropDownList Combo)
         {
             try
             {
@@ -250,7 +295,7 @@ namespace lblCapacitando
                     strError = "Sin Combo a Llenar";
                     return false;
                 }
-                strSQL = "exec USP_TEMa_LlenarCombo;";
+                strSQL = "exec USP_PROgramacion_LlenarComboXCurso;";
                 clsLlenarCombos objXX = new clsLlenarCombos(strApp);
                 objXX.SQL = strSQL;
                 objXX.CampoID = "Clave";
@@ -272,6 +317,8 @@ namespace lblCapacitando
 
             }
         }
+
+        
         #endregion
     }
 }
