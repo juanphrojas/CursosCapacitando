@@ -872,17 +872,23 @@ BEGIN
 END
 GO
 
-CREATE PROCEDURE USP_MATricula_BuscarXCodigo
+alter PROCEDURE USP_MATricula_BuscarXCodigo
 @Codigo int
 
 AS
 	BEGIN
 			SELECT intCod_MAT as Clave,
-					strApellido_CLI+' '+ strNombre_CLI as Cliente,
+					idCLI_MAT as Cliente,
 					CONVERT (varchar(10), dtmFecha_MAT, 103) as FechaMatricula,
-					idEMP_DEMA as empleado
-			FROM tblMATricula inner join tblCLIente on idCLI_MAT = intCod_CLI
+					idEMP_DEMA as EmpleadoMAtricula,
+					intCod_PAG as CodigoPago,
+					CONVERT (varchar(10), dtmFecha_PAG, 103) as FechaPago,
+					idEMP_PAG as EmpleadoPago,
+					idFPAG_PAG as FormaPago,
+					realMonto_PAG as MontoPago
+			FROM tblMATricula
 			inner join tblDEtalle_MAtricula on idMAT_DEMA = intCod_MAT
+			inner join tblPAGo on idMAT_PAG = intCod_MAT
 			WHERE intCod_MAT = @Codigo
 			EXEC USP_MATricula_BuscarGrid @Codigo
   END
@@ -968,5 +974,51 @@ BEGIN
 			commit transaction tx
 			select @Codigo as  Rpta
 			return
+END
+GO
+
+
+CREATE PROCEDURE USP_MATricula_GrabarPago
+	@idEmpleado int,
+	@idMatricula int,
+	@idFormaPago int,
+	@Monto real
+AS
+BEGIN
+	if exists (select intCod_PAG from tblPAGo where idMAT_PAG =@idMatricula)
+		begin 
+			select -1 as Rpta
+			return 
+		end
+	else
+		
+		begin
+		begin transaction tx
+			insert into tblPAGo values (GETDATE(), @idEmpleado, @idMatricula,@idFormaPago,@Monto)
+			if (@@ERROR>0)
+				begin 
+				rollback transaction tx
+				select 0 as Rpta
+				return
+			end
+		commit transaction tx
+		select @idMatricula as Rpta
+		return
+		end
+		
+END
+GO
+
+
+CREATE PROCEDURE USP_MATricula_LlenarComboFormaPago
+
+AS
+BEGIN
+	
+	SELECT intCod_FPAG as Clave, strDescripcion_FPAG as Dato
+
+	from tblForma_PAGo
+	order by strDescripcion_FPAG
+	
 END
 GO
