@@ -76,7 +76,6 @@
                                             <asp:MenuItem Text="Empleados" Value="opcEmpleados" NavigateUrl="~/frmEmpleados.aspx"></asp:MenuItem>
                                             <asp:MenuItem Text="Matriculas" Value="opcMatriculas" NavigateUrl="~/frmMatriculas.aspx"></asp:MenuItem>
                                             <asp:MenuItem NavigateUrl="~/frmTemas.aspx" Text="Temas" Value="opcTemas"></asp:MenuItem>
-                                            <asp:MenuItem Text="Pagos" Value="opcPagos"></asp:MenuItem>
                                         </Items>
                                     </asp:Menu>
                                 </asp:ContentPlaceHolder>
