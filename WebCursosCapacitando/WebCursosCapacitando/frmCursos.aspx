@@ -40,10 +40,11 @@
                         <td>&nbsp;</td>
                     </tr>
                     <tr>
-                        <td><strong>Código:</strong></td>
+                        <td class="auto-style5"><strong>Código:</strong></td>
                         <td>
+                            &nbsp;&nbsp;&nbsp;
                             <asp:TextBox ID="txtCodigo" runat="server" Height="20px" Width="269px"></asp:TextBox>
-                            <asp:ImageButton ID="ibtnBuscar" runat="server" Height="25px" ImageUrl="~/imagenes/buscar.png" />
+                            <asp:ImageButton ID="ibtnBuscar" runat="server" Height="25px" ImageUrl="~/imagenes/buscar.png" ImageAlign="Top" />
                         </td>
                         <td>&nbsp;</td>
                         <td>&nbsp;</td>
@@ -55,12 +56,14 @@
                         <td>&nbsp;</td>
                     </tr>
                     <tr>
-                        <td><strong>Nombre:</strong></td>
+                        <td class="auto-style5"><strong>Nombre:</strong></td>
                         <td>
+                            &nbsp;&nbsp;&nbsp;
                             <asp:TextBox ID="txtNombre" runat="server" Height="20px" Width="269px"></asp:TextBox>
                         </td>
-                        <td><strong>Fecha:</strong></td>
+                        <td class="auto-style5"><strong>Fecha:</strong></td>
                         <td>
+                            &nbsp;&nbsp;&nbsp;
                             <asp:TextBox ID="txtApellido" runat="server" Height="20px" Width="269px"></asp:TextBox>
                         </td>
                     </tr>
@@ -71,12 +74,14 @@
                         <td>&nbsp;</td>
                     </tr>
                     <tr>
-                        <td><strong>Costo:</strong></td>
+                        <td class="auto-style5"><strong>Costo:</strong></td>
                         <td>
+                            &nbsp;&nbsp;&nbsp;
                             <asp:TextBox ID="txtNroDoc" runat="server" Height="20px" Width="269px"></asp:TextBox>
                         </td>
-                        <td><strong>Horas:</strong></td>
+                        <td class="auto-style5"><strong>Horas:</strong></td>
                         <td>
+                            &nbsp;&nbsp;&nbsp;
                             <asp:TextBox ID="txtUsuario" runat="server" Height="20px" Width="269px"></asp:TextBox>
                         </td>
                     </tr>
@@ -87,8 +92,9 @@
                         <td>&nbsp;</td>
                     </tr>
                     <tr>
-                        <td style="font-weight: 700">Empleado:</td>
+                        <td style="font-weight: 700" class="auto-style5">Empleado:</td>
                         <td>
+                            &nbsp;&nbsp;&nbsp;
                             <asp:TextBox ID="txtEmpleado" runat="server" Height="20px" Width="269px"></asp:TextBox>
                         </td>
                         <td>&nbsp;</td>
@@ -116,9 +122,9 @@
                                         <td colspan="4">&nbsp;</td>
                                     </tr>
                                     <tr>
-                                        <td><strong style="text-align: center">Tema:</strong></td>
+                                        <td class="auto-style5"><strong style="text-align: center">Tema:&nbsp; </strong></td>
                                         <td colspan="2" style="text-align: center">
-                                            <asp:DropDownList ID="ddlCargo1" runat="server" Height="25px" Width="500px">
+                                            &nbsp;<asp:DropDownList ID="ddlCargo1" runat="server" Height="25px" Width="500px">
                                             </asp:DropDownList>
                                         </td>
                                         <td style="text-align: center">
@@ -177,6 +183,9 @@
             font-weight: normal;
         text-align: center;
     }
+        .auto-style5 {
+            text-align: right;
+        }
     </style>
 </asp:Content>
 

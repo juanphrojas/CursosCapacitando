@@ -15,7 +15,7 @@
     </tr>
     <tr>
         <td style="background-color: #FFF5CE">&nbsp;</td>
-        <td style="background-color: #FFF5CE">
+        <td style="background-color: #FFF5CE" class="auto-style3">
                         <asp:Menu ID="mnuOpc" runat="server" CssClass="nuevoEstilo7" Orientation="Horizontal" RenderingMode="Table" Width="100%">
                             <Items>
                                 <asp:MenuItem Text="Agregar" Value="opcAgregar"></asp:MenuItem>
@@ -44,10 +44,12 @@
                     <tr>
                         <td><strong>Código:</strong></td>
                         <td>
+                            &nbsp;&nbsp;&nbsp;
                             <asp:TextBox ID="txtCodigo" runat="server" Height="20px" Width="269px"></asp:TextBox>
                         </td>
-                        <td>
-                            <asp:ImageButton ID="ibtnBuscar" runat="server" Height="25px" ImageUrl="~/imagenes/buscar.png" />
+                        <td class="auto-style5">
+                            &nbsp;&nbsp;
+                            <asp:ImageButton ID="ibtnBuscar" runat="server" Height="25px" ImageUrl="~/imagenes/buscar.png" ImageAlign="Top" />
                         </td>
                         <td>&nbsp;</td>
                     </tr>
@@ -62,8 +64,9 @@
                         <td>
                             <asp:TextBox ID="txtNombre" runat="server" Height="20px" Width="269px"></asp:TextBox>
                         </td>
-                        <td><strong>Apellido:</strong></td>
+                        <td class="auto-style4"><strong>Apellido:</strong></td>
                         <td>
+                            &nbsp;&nbsp;&nbsp;
                             <asp:TextBox ID="txtApellido" runat="server" Height="20px" Width="269px"></asp:TextBox>
                         </td>
                     </tr>
@@ -94,21 +97,21 @@
                         <td>
                             <asp:TextBox ID="txtContra" runat="server" Height="20px" Width="269px"></asp:TextBox>
                         </td>
-                        <td><strong>Confirmar Contraseña:</strong></td>
+                        <td><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Confirmar Contraseña:</strong></td>
                         <td>
                             <asp:TextBox ID="txtConfContra" runat="server" Height="20px" Width="269px"></asp:TextBox>
                         </td>
                     </tr>
                     <tr>
-                        <td>&nbsp;</td>
-                        <td>&nbsp;</td>
-                        <td>&nbsp;</td>
-                        <td>&nbsp;</td>
+                        <td class="auto-style6"></td>
+                        <td class="auto-style6"></td>
+                        <td class="auto-style6"></td>
+                        <td class="auto-style6"></td>
                     </tr>
                     <tr>
                         <td style="font-weight: 700">Cargo:</td>
-                        <td>
-                            <asp:DropDownList ID="ddlCargo" runat="server" Height="25px" Width="269px">
+                        <td class="auto-style4">
+                            <asp:DropDownList ID="ddlCargo" runat="server" Height="25px" Width="273px">
                             </asp:DropDownList>
                         </td>
                         <td><strong>Antigüedad:</strong></td>
@@ -153,4 +156,19 @@
     </tr>
 </table>
 </asp:Content>
+
+<asp:Content ID="Content5" runat="server" contentplaceholderid="head">
+    <style type="text/css">
+        .auto-style4 {
+            text-align: right;
+        }
+        .auto-style5 {
+            text-align: left;
+        }
+        .auto-style6 {
+            height: 21px;
+        }
+    </style>
+</asp:Content>
+
 

@@ -39,26 +39,26 @@
             <asp:Panel ID="PanelInfo" runat="server">
                 <table align="center" cellpadding="0" cellspacing="0" class="auto-style4">
                     <tr>
-                        <td>&nbsp;</td>
+                        <td class="auto-style6">&nbsp;</td>
                         <td>&nbsp;</td>
                         <td>&nbsp;</td>
                         <td>&nbsp;</td>
                     </tr>
                     <tr>
-                        <td><strong>Código:</strong></td>
-                        <td colspan="3">
+                        <td class="auto-style6"><strong>Código:</strong></td>
+                        <td colspan="3" class="auto-style5">
                             <asp:TextBox ID="txtCodigo" runat="server" Height="20px" Width="269px"></asp:TextBox>
-                            <asp:ImageButton ID="imbtnBuscar" runat="server" Height="25px" ImageUrl="~/imagenes/buscar.png" />
+                            <asp:ImageButton ID="imbtnBuscar" runat="server" Height="25px" ImageUrl="~/imagenes/buscar.png" ImageAlign="Top" />
                         </td>
                     </tr>
                     <tr>
-                        <td>&nbsp;</td>
+                        <td class="auto-style6">&nbsp;</td>
                         <td>&nbsp;</td>
                         <td>&nbsp;</td>
                         <td>&nbsp;</td>
                     </tr>
                     <tr>
-                        <td><strong>Nombre:</strong></td>
+                        <td class="auto-style6"><strong>Nombre:</strong></td>
                         <td>
                             <asp:TextBox ID="txtNombre" runat="server" Height="20px" Width="269px"></asp:TextBox>
                         </td>
@@ -67,25 +67,25 @@
                             &nbsp;</td>
                     </tr>
                     <tr>
-                        <td>&nbsp;</td>
+                        <td class="auto-style6">&nbsp;</td>
                         <td>&nbsp;</td>
                         <td>&nbsp;</td>
                         <td>&nbsp;</td>
                     </tr>
                     <tr>
-                        <td><strong>Descripción:</strong></td>
+                        <td class="auto-style6"><strong>Descripción:</strong></td>
                         <td colspan="3">
-                            <asp:TextBox ID="txtDescripcion" runat="server" Height="20px" Width="100%"></asp:TextBox>
+                            &nbsp;<asp:TextBox ID="txtDescripcion" TextMode="MultiLine" runat="server" Height="100px" Width="100%"></asp:TextBox>
                         </td>
                     </tr>
                     <tr>
-                        <td>&nbsp;</td>
+                        <td class="auto-style6">&nbsp;</td>
                         <td>&nbsp;</td>
                         <td>&nbsp;</td>
                         <td>&nbsp;</td>
                     </tr>
                     <tr>
-                        <td>&nbsp;</td>
+                        <td class="auto-style6">&nbsp;</td>
                         <td>&nbsp;</td>
                         <td>&nbsp;</td>
                         <td>&nbsp;</td>
@@ -115,3 +115,18 @@
         </tr>
     </table>
 </asp:Content>
+<asp:Content ID="Content5" runat="server" contentplaceholderid="head">
+    <style type="text/css">
+        .auto-style4 {
+            text-align: right;
+        }
+        .auto-style5 {
+            text-align: left;
+        }
+        .auto-style6 {
+            width: 124px;
+            text-align: center;
+        }
+    </style>
+</asp:Content>
+

@@ -39,10 +39,11 @@
             <asp:Panel ID="PanelInfo" runat="server">
                 <table align="center" cellpadding="0" cellspacing="0" class="auto-style4">
                     <tr>
-                        <td><strong>Código:</strong></td>
+                        <td class="auto-style5"><strong>Código:</strong></td>
                         <td>
+                            &nbsp;&nbsp;&nbsp;
                             <asp:TextBox ID="txtCodigo" runat="server" Height="20px" Width="269px"></asp:TextBox>
-                            <asp:ImageButton ID="ibtnBuscar" runat="server" Height="25px" ImageUrl="~/imagenes/buscar.png" />
+                            <asp:ImageButton ID="ibtnBuscar" runat="server" Height="25px" ImageUrl="~/imagenes/buscar.png" ImageAlign="Top" />
                         </td>
                         <td>&nbsp;</td>
                         <td>&nbsp;</td>
@@ -54,12 +55,14 @@
                         <td>&nbsp;</td>
                     </tr>
                     <tr>
-                        <td><strong>Nombre:</strong></td>
+                        <td class="auto-style5"><strong>Nombre:</strong></td>
                         <td>
+                            &nbsp;&nbsp;&nbsp;
                             <asp:TextBox ID="txtNombre" runat="server" Height="20px" Width="269px"></asp:TextBox>
                         </td>
-                        <td><strong>Apellido:</strong></td>
+                        <td class="auto-style5"><strong>Apellido:</strong></td>
                         <td>
+                            &nbsp;&nbsp;&nbsp;
                             <asp:TextBox ID="txtApellido" runat="server" Height="20px" Width="269px"></asp:TextBox>
                         </td>
                     </tr>
@@ -70,12 +73,14 @@
                         <td>&nbsp;</td>
                     </tr>
                     <tr>
-                        <td><strong>Nro. Docuento: </strong></td>
+                        <td class="auto-style5"><strong>Nro. Docuento: </strong></td>
                         <td>
+                            &nbsp;&nbsp;&nbsp;
                             <asp:TextBox ID="txtNroDoc" runat="server" Height="20px" Width="269px"></asp:TextBox>
                         </td>
-                        <td><strong>Empleado:</strong></td>
+                        <td class="auto-style5"><strong>Empleado:</strong></td>
                         <td>
+                            &nbsp;&nbsp;&nbsp;
                             <asp:TextBox ID="txtEmpleado" runat="server" Height="20px" Width="269px"></asp:TextBox>
                         </td>
                     </tr>
@@ -132,6 +137,9 @@
     .nuevoEstilo2 {
         cursor: pointer;
     }
+        .auto-style5 {
+            text-align: right;
+        }
         </style>
 </asp:Content>
 
