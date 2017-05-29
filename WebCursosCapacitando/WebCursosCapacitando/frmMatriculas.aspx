@@ -60,13 +60,13 @@
                     <tr>
                         <td><strong>Doc. Cliente:</strong></td>
                         <td>
-                            <asp:TextBox ID="TextBox1" runat="server" Height="20px" Width="296px"></asp:TextBox>
+                            <asp:TextBox ID="txtDocCliente" runat="server" Height="20px" Width="296px"></asp:TextBox>
                             <asp:ImageButton ID="ibtnBuscarXDocCliente" runat="server" Height="25px" ImageUrl="~/imagenes/buscar.png" ImageAlign="Top" />
                         </td>
                         <td><strong style="text-align: center">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Nombre:</strong></td>
                         <td>
                             &nbsp;&nbsp;&nbsp;
-                            <asp:TextBox ID="TextBox2" runat="server" Height="20px" Width="300px"></asp:TextBox>
+                            <asp:TextBox ID="txtNombre" runat="server" Height="20px" Width="300px"></asp:TextBox>
                         </td>
                     </tr>
                     <tr>
@@ -79,11 +79,11 @@
                         <td><strong>Fecha:</strong></td>
                         <td class="auto-style5">
                             &nbsp;&nbsp;&nbsp;
-                            <asp:TextBox ID="TextBox3" runat="server" Height="20px" Width="296px"></asp:TextBox>
+                            <asp:TextBox ID="txtFecha" runat="server" Height="20px" Width="296px"></asp:TextBox>
                         </td>
                         <td class="auto-style4"><strong>Empleado:</strong></td>
                         <td>
-                            <asp:TextBox ID="TextBox4" runat="server" Height="20px" Width="296px"></asp:TextBox>
+                            <asp:TextBox ID="txtEmpleado" runat="server" Height="20px" Width="296px"></asp:TextBox>
                         </td>
                     </tr>
                     <tr>
@@ -112,12 +112,12 @@
                                         <td><strong>Curso:</strong></td>
                                         <td class="auto-style5">
                                             &nbsp;&nbsp;
-                                            <asp:DropDownList ID="DropDownList2" runat="server" Height="25px" Width="296px">
+                                            <asp:DropDownList ID="ddlCurso" runat="server" Height="25px" Width="296px">
                                             </asp:DropDownList>
                                         </td>
                                         <td><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Programa:&nbsp;&nbsp;&nbsp;&nbsp; </strong></td>
                                         <td>
-                                            <asp:DropDownList ID="DropDownList3" runat="server" Height="25px" Width="100%">
+                                            <asp:DropDownList ID="ddlPrograma" runat="server" Height="25px" Width="100%">
                                             </asp:DropDownList>
                                         </td>
                                     </tr>
@@ -159,7 +159,7 @@
                                                     <tr>
                                                         <td><strong>Forma de pago:</strong></td>
                                                         <td>
-                                                            <asp:DropDownList ID="ddlFormaPago0" runat="server" Width="296px">
+                                                            <asp:DropDownList ID="ddlFormaPago" runat="server" Width="296px">
                                                             </asp:DropDownList>
                                                         </td>
                                                         <td>&nbsp;</td>
@@ -174,11 +174,11 @@
                                                     <tr>
                                                         <td><strong>Código:</strong></td>
                                                         <td>
-                                                            <asp:TextBox ID="TextBox5" runat="server" Width="296px"></asp:TextBox>
+                                                            <asp:TextBox ID="txtCodigoPago" runat="server" Width="296px"></asp:TextBox>
                                                         </td>
                                                         <td class="nuevoEstilo7"><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Fecha:</strong></td>
                                                         <td>
-                                                            <asp:TextBox ID="TextBox6" runat="server" Width="296px"></asp:TextBox>
+                                                            <asp:TextBox ID="txtFechaPago" runat="server" Width="296px"></asp:TextBox>
                                                         </td>
                                                     </tr>
                                                     <tr>
@@ -190,11 +190,11 @@
                                                     <tr>
                                                         <td><strong>Empleado:</strong></td>
                                                         <td>
-                                                            <asp:TextBox ID="TextBox7" runat="server" Width="296px"></asp:TextBox>
+                                                            <asp:TextBox ID="txtEmpleadoPago" runat="server" Width="296px"></asp:TextBox>
                                                         </td>
                                                         <td class="auto-style4"><strong>Monto:</strong></td>
                                                         <td>
-                                                            <asp:TextBox ID="TextBox8" runat="server" Width="296px"></asp:TextBox>
+                                                            <asp:TextBox ID="txtMonto" runat="server" Width="296px"></asp:TextBox>
                                                         </td>
                                                     </tr>
                                                     <tr>

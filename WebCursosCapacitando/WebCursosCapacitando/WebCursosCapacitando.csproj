@@ -106,6 +106,8 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="frmBienvenida.aspx" />
+    <Content Include="frmLogin.aspx" />
     <Content Include="frmMatriculas.aspx" />
     <Content Include="frmCursos.aspx" />
     <Content Include="frmTemas.aspx" />
@@ -131,6 +133,20 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="frmBienvenida.aspx.cs">
+      <DependentUpon>frmBienvenida.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="frmBienvenida.aspx.designer.cs">
+      <DependentUpon>frmBienvenida.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="frmLogin.aspx.cs">
+      <DependentUpon>frmLogin.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="frmLogin.aspx.designer.cs">
+      <DependentUpon>frmLogin.aspx</DependentUpon>
+    </Compile>
     <Compile Include="frmMatriculas.aspx.cs">
       <DependentUpon>frmMatriculas.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
