@@ -40,7 +40,7 @@
         <form id="formLogin" runat="server">
             <label>Nombre de usuario:</label>
             <asp:TextBox ID="txtNombreUsuario" Width="100%" Height="25px" runat="server"></asp:TextBox><br /><br />
-            <label>Contraseña:</label><br />
+            <label>Código de Empleado:</label><br />
             <asp:TextBox ID="txtPass" Width="100%" Height="25px" TextMode="Password" runat="server"></asp:TextBox><br /><br />
             <asp:Button ID="btnIniciar" Text="Iniciar Sesión" CssClass="btn" runat="server" OnClick="btnIniciar_Click"/>
         </form>
