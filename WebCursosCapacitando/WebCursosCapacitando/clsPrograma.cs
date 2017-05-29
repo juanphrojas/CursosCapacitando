@@ -244,7 +244,7 @@ namespace WebCursosCapacitando
                     return false;
                 if (!ValidarModificar())
                     return false;
-                strSQL = "exec USP_PROgramacion_Modificar '" + Codigo + "','" + idCurso + "','" + idEmpleado + "'," + GenerarFecha() + ",'" + Estado + "','" + Cupos + "','" + idDocente + "';";
+                strSQL = "exec USP_PROgramacion_Modificar '" + Codigo + "','" + idCurso + "','" + idEmpleado + "','" + GenerarFecha() + "','" + Estado + "','" + Cupos + "','" + idDocente + "';";
                 return Grabar();
             }
             catch (Exception ex)

@@ -159,7 +159,7 @@
                                         <asp:Panel ID="PanelAccionesProgram" runat="server">
                                             <div class="auto-style3">
                                                 <asp:Button ID="btnAddProgramacion" runat="server" BackColor="#00FF99" BorderColor="#00B96F" BorderStyle="None" CssClass="nuevoEstilo2" Font-Bold="True" ForeColor="#002847" Height="47px" Text="Añadir a programación" Width="200px" OnClick="btnAddProgramacion_Click" Visible="False" />
-                                                <asp:Button ID="btnModProgramacion" runat="server" BackColor="#FFCC66" BorderColor="#00B96F" BorderStyle="None" CssClass="nuevoEstilo2" Font-Bold="True" ForeColor="#002847" Height="47px" Text="Añadir a programación" Width="200px" OnClick="btnModProgramacion_Click" Visible="False" />
+                                                <asp:Button ID="btnModProgramacion" runat="server" BackColor="#FFCC66" BorderColor="#00B96F" BorderStyle="None" CssClass="nuevoEstilo2" Font-Bold="True" ForeColor="#002847" Height="47px" Text="Cambiar programación" Width="200px" OnClick="btnModProgramacion_Click" Visible="False" />
                                             </div>
                                         </asp:Panel>
                                     </td>

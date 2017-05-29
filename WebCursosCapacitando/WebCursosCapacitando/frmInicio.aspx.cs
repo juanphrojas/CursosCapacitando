@@ -66,24 +66,12 @@ namespace WebCursosCapacitando
             }
         }
 
-        #region Metodos perzonalizados
-        private void Limpiar()
-        {
-            txtCodigo.Text = string.Empty;
-            txtCupos.Text = string.Empty;
-            txtFecha.Text = string.Empty;
-            rbtnEstado.SelectedValue = "opcActivo";
-            txtEstado.Text = string.Empty;
-            txtEmpleado.Text = string.Empty;
-            Calendar1.SelectedDate = DateTime.Now;
-        }
-
         protected void ibtnBuscar0_Click(object sender, ImageClickEventArgs e)
         {
             if (!Buscar())
                 return;
 
-            if(intOpcion == 2)
+            if (intOpcion == 2)
             {
                 btnModProgramacion.Visible = true;
                 txtCodigo.ReadOnly = true;
@@ -97,7 +85,7 @@ namespace WebCursosCapacitando
                 PanelInfo.Enabled = false;
                 txtEstado.Visible = true;
             }
-                
+
         }
 
         protected void Calendar1_SelectionChanged(object sender, EventArgs e)
@@ -176,6 +164,18 @@ namespace WebCursosCapacitando
             }
         }
 
+        #region Metodos perzonalizados
+        private void Limpiar()
+        {
+            txtCodigo.Text = string.Empty;
+            txtCupos.Text = string.Empty;
+            txtFecha.Text = string.Empty;
+            rbtnEstado.SelectedValue = "opcActivo";
+            txtEstado.Text = string.Empty;
+            txtEmpleado.Text = string.Empty;
+            Calendar1.SelectedDate = DateTime.Now;
+        }
+
         private void Mensaje(string Mensaje)
         {
             lblMensaje.Text = Mensaje;
@@ -208,9 +208,10 @@ namespace WebCursosCapacitando
                 this.ddlCurso.SelectedValue = objPRO.idCurso.ToString();
                 this.ddlDocente.SelectedValue = objPRO.idDocente.ToString();
                 this.txtEstado.Text = objPRO.Estado.ToString();
-                this.txtFecha.Text = objPRO.FechaInicio.ToString();
+                this.txtFecha.Text = objPRO.FechaInicio.ToShortDateString();
                 this.Calendar1.SelectedDate = objPRO.FechaInicio;
                 this.txtEmpleado.Text = objPRO.idEmpleado.ToString();
+                this.txtCupos.Text = objPRO.Cupos.ToString();
                 objPRO = null;
                 return true;
 
