@@ -72,7 +72,7 @@
                                         <Items>
                                             <asp:MenuItem Text="Clientes" Value="opcClientes" NavigateUrl="~/frmCliente.aspx"></asp:MenuItem>
                                             <asp:MenuItem Text="Cursos" Value="opcCursos" NavigateUrl="~/frmCursos.aspx"></asp:MenuItem>
-                                            <asp:MenuItem NavigateUrl="~/frmInicio.aspx" Text="Programaciones" Value="opcProgramaciones"></asp:MenuItem>
+                                            <asp:MenuItem NavigateUrl="~/frmProgramaciones.aspx" Text="Programaciones" Value="opcProgramaciones"></asp:MenuItem>
                                             <asp:MenuItem Text="Empleados" Value="opcEmpleados" NavigateUrl="~/frmEmpleados.aspx"></asp:MenuItem>
                                             <asp:MenuItem Text="Matriculas" Value="opcMatriculas" NavigateUrl="~/frmMatriculas.aspx"></asp:MenuItem>
                                             <asp:MenuItem NavigateUrl="~/frmTemas.aspx" Text="Temas" Value="opcTemas"></asp:MenuItem>

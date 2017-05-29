@@ -125,7 +125,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="frmInicio.aspx" />
+    <Content Include="frmProgramaciones.aspx" />
     <Content Include="Global.asax" />
     <Content Include="imagenes\logo.jpg" />
     <Content Include="Web.config" />
@@ -166,12 +166,12 @@
     <Compile Include="frmCliente.aspx.designer.cs">
       <DependentUpon>frmCliente.aspx</DependentUpon>
     </Compile>
-    <Compile Include="frmInicio.aspx.cs">
-      <DependentUpon>frmInicio.aspx</DependentUpon>
+    <Compile Include="frmProgramaciones.aspx.cs">
+      <DependentUpon>frmProgramaciones.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="frmInicio.aspx.designer.cs">
-      <DependentUpon>frmInicio.aspx</DependentUpon>
+    <Compile Include="frmProgramaciones.aspx.designer.cs">
+      <DependentUpon>frmProgramaciones.aspx</DependentUpon>
     </Compile>
     <Compile Include="frmPrincipal.Master.cs">
       <DependentUpon>frmPrincipal.Master</DependentUpon>

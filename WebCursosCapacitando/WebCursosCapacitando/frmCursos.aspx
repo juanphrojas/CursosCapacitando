@@ -1,6 +1,6 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/frmPrincipal.Master" AutoEventWireup="true" CodeBehind="frmCursos.aspx.cs" Inherits="WebCursosCapacitando.Formulario_web13" %>
 <asp:Content ID="Content4" ContentPlaceHolderID="Cuerpo" runat="server">
-    <table align="center" cellpadding="0" cellspacing="0" class="auto-style4">
+    <table cellpadding="0" cellspacing="0" class="auto-style1">
         <tr>
             <td>&nbsp;</td>
         </tr>
@@ -8,13 +8,13 @@
             <td>&nbsp;</td>
         </tr>
         <tr>
-            <td style="text-align: center">CURSOS</td>
+            <td class="nuevoEstilo2">CURSOS</td>
         </tr>
         <tr>
-            <td>&nbsp;</td>
+            <td class="nuevoEstilo2">&nbsp;</td>
         </tr>
-        <tr style="background-color: #FFF5CE">
-            <td>
+        <tr>
+            <td style="background-color: #FFF5CE">
                         <asp:Menu ID="mnuOpciones" runat="server" CssClass="nuevoEstilo7" Orientation="Horizontal" RenderingMode="Table" Width="100%">
                             <Items>
                                 <asp:MenuItem Text="Agregar" Value="opcAgregar"></asp:MenuItem>
@@ -29,6 +29,9 @@
         <tr>
             <td>&nbsp;</td>
         </tr>
+        <tr>
+            <td>
+    <table align="center" cellpadding="0" cellspacing="0" class="auto-style4">
         <tr>
             <td>
             <asp:Panel ID="PanelInfo" runat="server">
@@ -169,12 +172,21 @@
                     </td>
         </tr>
     </table>
+            </td>
+        </tr>
+        <tr>
+            <td>&nbsp;</td>
+        </tr>
+        <tr>
+            <td>&nbsp;</td>
+        </tr>
+        <tr>
+            <td>&nbsp;</td>
+        </tr>
+    </table>
 </asp:Content>
 <asp:Content ID="Content5" runat="server" contentplaceholderid="head">
     <style type="text/css">
-        .auto-style4 {
-            width: 80%;
-        }
         .nuevoEstilo2 {
             text-align: center;
         }
@@ -183,6 +195,9 @@
             font-weight: normal;
         text-align: center;
     }
+        .auto-style4 {
+            width: 80%;
+        }
         .auto-style5 {
             text-align: right;
         }

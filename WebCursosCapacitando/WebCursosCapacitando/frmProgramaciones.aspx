@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/frmPrincipal.Master" AutoEventWireup="true" CodeBehind="Formulario web1.aspx.cs" Inherits="WebCursosCapacitando.Formulario_web1" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/frmPrincipal.Master" AutoEventWireup="true" CodeBehind="frmProgramaciones.aspx.cs" Inherits="WebCursosCapacitando.Formulario_web1" %>
 <asp:Content ID="Content4" ContentPlaceHolderID="Cuerpo" runat="server">
     
     <table cellpadding="0" cellspacing="0" class="auto-style1">
