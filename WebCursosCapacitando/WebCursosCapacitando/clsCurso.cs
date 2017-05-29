@@ -191,7 +191,7 @@ namespace WebCursosCapacitando
                 Mydt = Myds.Tables[0];
                 if (Mydt.Rows.Count <= 0)
                 {
-                    strError = "No existe el cliente con cedula: " + _Codigo;
+                    strError = "No existe el curso con codigo: " + _Codigo;
                     Myds.Clear();
                     Myds = null;
                     return false;

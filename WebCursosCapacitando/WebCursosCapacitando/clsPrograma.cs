@@ -187,7 +187,7 @@ namespace WebCursosCapacitando
                 Mydt = Myds.Tables[0];
                 if (Mydt.Rows.Count <= 0)
                 {
-                    strError = "No existe el cliente con cedula: " + _Codigo;
+                    strError = "No existe la programacion con codigo: " + _Codigo;
                     Myds.Clear();
                     Myds = null;
                     return false;
@@ -286,7 +286,7 @@ namespace WebCursosCapacitando
             }
         }
 
-        public bool LlenarComboProgramacionCurso(DropDownList Combo)
+        public bool LlenarComboProgramacionCurso(DropDownList Combo, int _Curso)
         {
             try
             {
@@ -297,7 +297,12 @@ namespace WebCursosCapacitando
                     strError = "Sin Combo a Llenar";
                     return false;
                 }
-                strSQL = "exec USP_PROgramacion_LlenarComboXCurso;";
+                if(_Curso<=0)
+                {
+                    strError = "Codigo de curso no valido";
+                    return false;
+                }
+                strSQL = "exec USP_PROgramacion_LlenarComboXCurso "+_Curso+";";
                 clsLlenarCombos objXX = new clsLlenarCombos(strApp);
                 objXX.SQL = strSQL;
                 objXX.CampoID = "Clave";

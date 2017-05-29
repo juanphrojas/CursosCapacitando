@@ -40,49 +40,58 @@ namespace WebCursosCapacitando {
         protected global::System.Web.UI.WebControls.ImageButton ibtnBuscarXCodigo;
         
         /// <summary>
-        /// Control TextBox1.
+        /// Control txtCodCliente.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox TextBox1;
+        protected global::System.Web.UI.WebControls.TextBox txtCodCliente;
         
         /// <summary>
-        /// Control ibtnBuscarXDocCliente.
+        /// Control ibtnBuscarXCliente.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.ImageButton ibtnBuscarXDocCliente;
+        protected global::System.Web.UI.WebControls.ImageButton ibtnBuscarXCliente;
         
         /// <summary>
-        /// Control TextBox2.
+        /// Control txtDocCliente.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox TextBox2;
+        protected global::System.Web.UI.WebControls.TextBox txtDocCliente;
         
         /// <summary>
-        /// Control TextBox3.
+        /// Control txtNombreCliente.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox TextBox3;
+        protected global::System.Web.UI.WebControls.TextBox txtNombreCliente;
         
         /// <summary>
-        /// Control TextBox4.
+        /// Control txtFechaMat.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox TextBox4;
+        protected global::System.Web.UI.WebControls.TextBox txtFechaMat;
+        
+        /// <summary>
+        /// Control txtEmpleadoMat.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtEmpleadoMat;
         
         /// <summary>
         /// Control PanelProgramas.
@@ -94,22 +103,22 @@ namespace WebCursosCapacitando {
         protected global::System.Web.UI.WebControls.Panel PanelProgramas;
         
         /// <summary>
-        /// Control DropDownList2.
+        /// Control ddlCursos.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList DropDownList2;
+        protected global::System.Web.UI.WebControls.DropDownList ddlCursos;
         
         /// <summary>
-        /// Control DropDownList3.
+        /// Control ddlPrograma.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList DropDownList3;
+        protected global::System.Web.UI.WebControls.DropDownList ddlPrograma;
         
         /// <summary>
         /// Control btnAddPrograma.
@@ -130,6 +139,15 @@ namespace WebCursosCapacitando {
         protected global::System.Web.UI.WebControls.Panel PanelPago;
         
         /// <summary>
+        /// Control txtCodPag.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtCodPag;
+        
+        /// <summary>
         /// Control ddlFormaPago0.
         /// </summary>
         /// <remarks>
@@ -139,49 +157,40 @@ namespace WebCursosCapacitando {
         protected global::System.Web.UI.WebControls.DropDownList ddlFormaPago0;
         
         /// <summary>
-        /// Control TextBox5.
+        /// Control txtFechaPag.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox TextBox5;
+        protected global::System.Web.UI.WebControls.TextBox txtFechaPag;
         
         /// <summary>
-        /// Control TextBox6.
+        /// Control txtEmpleadoPag.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox TextBox6;
+        protected global::System.Web.UI.WebControls.TextBox txtEmpleadoPag;
         
         /// <summary>
-        /// Control TextBox7.
+        /// Control txtMontoPag.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox TextBox7;
+        protected global::System.Web.UI.WebControls.TextBox txtMontoPag;
         
         /// <summary>
-        /// Control TextBox8.
+        /// Control btnAddPago.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox TextBox8;
-        
-        /// <summary>
-        /// Control btnAddMatricula0.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnAddMatricula0;
+        protected global::System.Web.UI.WebControls.Button btnAddPago;
         
         /// <summary>
         /// Control btnAddMatricula.
@@ -193,13 +202,22 @@ namespace WebCursosCapacitando {
         protected global::System.Web.UI.WebControls.Button btnAddMatricula;
         
         /// <summary>
-        /// Control btnModEmpleado.
+        /// Control btnModMatricula.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnModEmpleado;
+        protected global::System.Web.UI.WebControls.Button btnModMatricula;
+        
+        /// <summary>
+        /// Control lblMensaje.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblMensaje;
         
         /// <summary>
         /// Control grvMariculas.

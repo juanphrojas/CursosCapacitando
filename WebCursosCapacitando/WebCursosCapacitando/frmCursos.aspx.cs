@@ -100,49 +100,35 @@ namespace WebCursosCapacitando
             }
         }
 
-        #region Metodos perzonalizados
-        private void Limpiar()
-        {
-            txtCodigo.Text = string.Empty;
-            txtNombre.Text = string.Empty;
-            txtCosto.Text = string.Empty;
-            txtHoras.Text = string.Empty;
-        }
-
-        private void Mensaje(string Mensaje)
-        {
-            lblMensaje.Text = Mensaje;
-        }
-
         protected void btnAddCurso_Click(object sender, EventArgs e)
         {
             try
+            {
+                intidTema = Convert.ToInt32(ddlTema.SelectedValue);
+                strNombreCurso = txtNombre.Text;
+                fltCosto = Convert.ToSingle(txtCosto.Text);
+                intHorasCurso = Convert.ToInt32(txtHoras.Text);
+
+
+                clsCurso objCUR = new clsCurso(strApp, strNombreCurso, fltCosto, intHorasCurso, 3, intidTema);
+
+                if (!objCUR.Insertar())
                 {
-                    intidTema = Convert.ToInt32( ddlTema.SelectedValue);
-                    strNombreCurso = txtNombre.Text;
-                    fltCosto = Convert.ToSingle(txtCosto.Text);
-                    intHorasCurso = Convert.ToInt32(txtHoras.Text);
-                
-
-                    clsCurso objCUR = new clsCurso(strApp, strNombreCurso, fltCosto, intHorasCurso, 3, intidTema);
-
-                    if (!objCUR.Insertar())
-                    {
-                        Mensaje(objCUR.strError);
-                        objCUR = null;
-                        return;
-                        
-                    }
-
-                    LlenarGridCurso();
-                    Limpiar();
-                     objCUR = null;
+                    Mensaje(objCUR.strError);
+                    objCUR = null;
+                    return;
 
                 }
-                catch (Exception ex)
-                {
-                    Mensaje(ex.Message);
-                }
+
+                LlenarGridCurso();
+                Limpiar();
+                objCUR = null;
+
+            }
+            catch (Exception ex)
+            {
+                Mensaje(ex.Message);
+            }
         }
 
         protected void btnModCurso_Click(object sender, EventArgs e)
@@ -181,7 +167,7 @@ namespace WebCursosCapacitando
 
         protected void btnAddTema0_Click(object sender, EventArgs e)
         {
-            if(intOpcion == 4)
+            if (intOpcion == 4)
             {
 
                 clsCurso objCUR = new clsCurso(strApp);
@@ -198,6 +184,20 @@ namespace WebCursosCapacitando
             }
         }
 
+        #region Metodos perzonalizados
+        private void Limpiar()
+        {
+            txtCodigo.Text = string.Empty;
+            txtNombre.Text = string.Empty;
+            txtCosto.Text = string.Empty;
+            txtHoras.Text = string.Empty;
+        }
+
+        private void Mensaje(string Mensaje)
+        {
+            lblMensaje.Text = Mensaje;
+        }
+        
         private bool Buscar()
         {
             try

@@ -22,13 +22,16 @@ namespace WebCursosCapacitando
 
         public int Codigo { get; set; }
         public int idCliente { get; set; }
+        public string DocCLiente { get; set; }
+        public string NombreCliente { get; set; }
         public DateTime FechaMatricula { get; set; }
-        public List<int> ListaProgramacion  { get; set; }
         public int idProgramacion { get; set; }
         public int idEmpleadoMatricula { get; set; }
+        public string NombreEmpleadoMatricula { get; set; }
         public int CodPago { get; set; }
         public DateTime FechaPago { get; set; }
         public int idEmpleadoPago { get; set; }
+        public string NombreEmpleadoPago { get; set; }
         public int idFormaPago { get; set; }
         public float MontoPago { get; set; }
         private string strApp;
@@ -47,7 +50,6 @@ namespace WebCursosCapacitando
             idCliente = 0;
             FechaMatricula = new DateTime();
             idProgramacion = 0;
-            ListaProgramacion = new List<int>();
             CodPago = 0;
             FechaPago = new DateTime();
             idEmpleadoPago = 0;
@@ -59,14 +61,13 @@ namespace WebCursosCapacitando
             strError = string.Empty;
         }
 
-        public clsMatricula(string Aplicacion,  int _idEmpleado, int _idCLiente, DateTime _FechaMatricula, List<int> _ListaProgramacion)
+        public clsMatricula(string Aplicacion,  int _idEmpleado, int _idCLiente,int _idProgramacion)
         {
             Codigo = 0;
             idEmpleadoMatricula = _idEmpleado;
             idCliente = _idCLiente;
-            FechaMatricula = _FechaMatricula;
-            idProgramacion = 0;
-            ListaProgramacion = _ListaProgramacion;
+            FechaMatricula = new DateTime();
+            idProgramacion = _idProgramacion;
             CodPago = 0;
             FechaPago = new DateTime();
             idEmpleadoPago = 0;
@@ -84,19 +85,9 @@ namespace WebCursosCapacitando
         {
             try
             {
-                if (idEmpleadoMatricula <= 0)
-                {
-                    strError = "Empleado no valido";
-                    return false;
-                }
                 if (idCliente <= 0)
                 {
                     strError = "Cliente no valido";
-                    return false;
-                }
-                if (ListaProgramacion == null)
-                {
-                    strError = "Debe tener al menos un programa para matricular";
                     return false;
                 }
 
@@ -122,7 +113,7 @@ namespace WebCursosCapacitando
             return true;
         }
 
-        private bool ValidarProgrmacion()
+        private bool ValidarProgramacion()
         {
             if (idEmpleadoMatricula <= 0)
             {
@@ -210,7 +201,7 @@ namespace WebCursosCapacitando
         #endregion
 
         #region metodos publicos
-        public bool BuscarMatricula(string _Codigo, GridView grid)
+        public bool BuscarMatricula(int _Codigo, GridView grid)
         {
             try
             {
@@ -231,7 +222,7 @@ namespace WebCursosCapacitando
                 Mydt = Myds.Tables[0];
                 if (Mydt.Rows.Count <= 0)
                 {
-                    strError = "No existe el cliente con cedula: " + _Codigo;
+                    strError = "No existe la matricula con codigo: " + _Codigo;
                     Myds.Clear();
                     Myds = null;
                     return false;
@@ -241,14 +232,15 @@ namespace WebCursosCapacitando
                 foreach (DataRow dr in Mydt.Rows)
                 {
                     Codigo = Convert.ToInt32(dr[0]);
-                    idCliente = Convert.ToInt32(dr[1]);
-                    FechaMatricula = Convert.ToDateTime(dr[2]);
-                    idEmpleadoMatricula = Convert.ToInt32(dr[3]);
-                    CodPago = Convert.ToInt32(dr[4]);
-                    FechaPago = Convert.ToDateTime(dr[5]);
-                    idEmpleadoPago = Convert.ToInt32(dr[6]);
-                    idFormaPago = Convert.ToInt32(dr[7]);
-                    MontoPago = Convert.ToSingle(dr[8]);
+                    DocCLiente = dr[1].ToString();
+                    NombreCliente = dr[2].ToString();
+                    FechaMatricula = Convert.ToDateTime(dr[3]);
+                    NombreEmpleadoMatricula = dr[4].ToString();
+                    CodPago = Convert.ToInt32(dr[5]);
+                    FechaPago = Convert.ToDateTime(dr[6]);
+                    NombreEmpleadoMatricula = dr[7].ToString();
+                    idFormaPago = Convert.ToInt32(dr[8]);
+                    MontoPago = Convert.ToSingle(dr[9]);
                 }
                 Mydt.Clear();
                 //Llenar el Grid
@@ -264,26 +256,73 @@ namespace WebCursosCapacitando
             }
         }
 
-        public bool insertar()
+        public bool BuscarClienteMatricula(int _Cliente, GridView grid)
+        {
+            try
+            {
+                strSQL = "exec USP_MATricula_BuscarXCliente '" + _Cliente + "';";
+                clsConexionBD objCnx = new clsConexionBD(strApp);
+                objCnx.SQL = strSQL;
+                if (!objCnx.LlenarDataSet(false))
+                {
+                    strError = objCnx.Error;
+                    objCnx.CerrarCnx();
+                    objCnx = null;
+                    return false;
+                }
+
+                Myds = objCnx.DataSet_Lleno;
+                objCnx = null;
+                //Leer desde el Primer DataTable
+                Mydt = Myds.Tables[0];
+                if (Mydt.Rows.Count <= 0)
+                {
+                    strError = "No existe el cliente con codigo: " + _Cliente;
+                    Myds.Clear();
+                    Myds = null;
+                    return false;
+
+                }
+                //Recuperar info desde el Primer DataTable
+                foreach (DataRow dr in Mydt.Rows)
+                {
+                    idCliente = Convert.ToInt32(dr[0]);
+                    DocCLiente = dr[1].ToString();
+                    NombreCliente = dr[2].ToString();
+                }
+                Mydt.Clear();
+                //Llenar el Grid
+                Mydt = Myds.Tables[1];
+                grid.DataSource = Mydt;
+                grid.DataBind();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                strError = ex.Message;
+                return false;
+            }
+        }
+
+        public bool Insertar()
         {
             try
             {
                 if (!ValidarDatos())
                     return false;
+                if(!ValidarProgramacion())
 
-                strSQL = "exec USP_MATricula_Grabar '" + idCliente + "','" + FechaMatricula + "';";
+                strSQL = "exec USP_MATricula_Grabar '" + idCliente + "';";
 
                 if (!Grabar())
                     return false;
 
 
-                for (int i = 0; i < ListaProgramacion.Count; i++)
-                {
-                    strSQL = "exec USP_MATricula_GrabarProgramacion '" + Codigo + "','" + ListaProgramacion[i] + "','" + idEmpleadoMatricula + "';";
-                    if (!Grabar())
-                        return false;
+                strSQL = "exec USP_MATricula_GrabarProgramacion '" + Codigo + "','" + idProgramacion + "','" + idEmpleadoMatricula + "';";
+                if (!Grabar())
+                    return false;
 
-                }
+                
 
                 return true;
             }
@@ -302,7 +341,7 @@ namespace WebCursosCapacitando
                     return false;
                 if (!ValidarCodigoMatricula())
                     return false;
-                strSQL = "exec USP_CURso_Modificar '" + Codigo + "','" + idCliente + "','" + FechaMatricula +"';";
+                strSQL = "exec USP_CURso_Modificar '" + Codigo + "','" + idCliente +"';";
                 return Grabar();
             }
             catch (Exception ex)
@@ -370,7 +409,7 @@ namespace WebCursosCapacitando
                     return false;
                 }
 
-                strSQL = "exec USP_CURso_BuscarGeneral;";
+                strSQL = "exec USP_MATricula_BuscarGeneral;";
                 clsLlenarGrids objxx = new clsLlenarGrids(strApp);
                 objxx.SQL = strSQL;
                 if (!objxx.LlenarGrid_Web(grid))
@@ -405,7 +444,7 @@ namespace WebCursosCapacitando
                 clsLlenarCombos objXX = new clsLlenarCombos(strApp);
                 objXX.SQL = strSQL;
                 objXX.CampoID = "Clave";
-                objXX.CampoTexto = "Nombre";
+                objXX.CampoTexto = "Dato";
                 if (!objXX.LlenarCombo_Web(Combo))
                 {
                     strError = objXX.Error;
