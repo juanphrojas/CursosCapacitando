@@ -243,8 +243,10 @@ AS
 						strNroDocumento_CLI as Cedula,
 						strNombre_CLI as NombreCiente,
 						strApellido_CLI as ApellidoCLiente,
-						idEMP_CLI as Empleado
-			FROM tblCLIente WHERE intCod_CLI = @Codigo
+						idEMP_CLI as ClaveEmpleado,
+						strNombre_EMP+' '+strApellido_EMP as NombreEmpleado
+			FROM tblCLIente inner join tblEMPleado on idEMP_CLI = intCod_EMP
+			WHERE intCod_CLI = @Codigo
 			EXEC USP_CLIente_BuscarGrid @Codigo
   END
 GO
@@ -343,12 +345,13 @@ AS
 						strApellido_EMP as ApellidoCLiente,
 						idCAR_EMP as Cargo,
 						strUsuario_EMP as Usuario,
+						strContrasena_EMP as Contrasena,
 						realAntiguedad_EMP as Antiguedad
 			FROM tblEMPleado WHERE intCod_EMP = @Codigo
   END
 GO
 
---exec USP_EMPleado_BuscarXCodigo 1;
+--exec USP_EMPleado_BuscarXCodigo 4;
 
 CREATE PROCEDURE USP_EMPleado_Grabar
 	@Cedula varchar(20),
@@ -429,9 +432,19 @@ BEGIN
 	SELECT intCod_EMP as Clave, strApellido_EMP+' '+strNombre_EMP as Dato
 
 	from tblEMPleado where idCAR_EMP = 1
-	order by strApellido_EMP
+	order by intCod_EMP
 	
 END
+GO
+
+CREATE PROCEDURE USP_EMPleado_BuscarNombre
+@Codigo int
+
+AS
+	BEGIN
+			SELECT strApellido_EMP+' '+strNombre_EMP as Empleado
+			FROM tblEMPleado WHERE intCod_EMP = @Codigo
+  END
 GO
 
 CREATE PROCEDURE USP_EMPleado_LlenarComboCargo
@@ -442,11 +455,30 @@ BEGIN
 	SELECT intCod_CAR as Clave, strDescripcion_CAR as Dato
 
 	from tblCARgo
-	order by strDescripcion_CAR
+	order by intCod_CAR
 	
 END
 GO
 
+
+CREATE PROCEDURE USP_EMPleado_InicioSesion
+@Usuario varchar(50),
+@Contrasena varchar(50)
+AS
+BEGIN
+	if not exists (select intCod_EMP from tblEMPleado where strUsuario_EMP = @Usuario and strContrasena_EMP = @Contrasena)
+	begin
+			select 'denied' as Rpta
+			return
+		end
+	else
+		begin
+			select 'granted' as Rpta
+		end
+END
+GO
+
+--exec USP_EMPleado_InicioSesion 'fulanodetal','asd';
 -------------------------------------------------------------------------
 ----------------------------------TEMA-----------------------------------
 -------------------------------------------------------------------------
@@ -534,7 +566,7 @@ BEGIN
 END
 GO
 
-CREATE PROCEDURE USP_TEMa_LlenarCombo
+alter PROCEDURE USP_TEMa_LlenarCombo
 
 AS
 BEGIN
@@ -542,7 +574,7 @@ BEGIN
 	SELECT intCod_TEM as Clave, strNombre_TEM as Dato
 
 	from tblTEMa
-	order by strNombre_TEM
+	order by intCod_TEM
 	
 END
 GO
@@ -591,14 +623,15 @@ AS
 					CONVERT (varchar(10), dtmFecha_CUR, 103) as FechaCreacion,
 					realCosto_CUR as Costo,
 					intHoras_CUR as Horas,
-					idEMP_CUR as Empleado
-			FROM tblCURso
+					idEMP_CUR as CodigoEmpleado,
+					strNombre_EMP as NombreEmpleado
+			FROM tblCURso inner join tblEMPleado on idEMP_CUR = intCod_EMP
 			where intCod_CUR = @Codigo
 			EXEC USP_CURso_BuscarGrid @Codigo
   END
 GO
 
---exec USP_CURso_BuscarXCodigo 1;
+--exec USP_CURso_BuscarXCodigo 4;
 
 CREATE PROCEDURE USP_CURso_Grabar
 	@Nombre Varchar(50),
@@ -690,9 +723,9 @@ BEGIN
 		
 END
 GO
---exec USP_CURso_GrabarTema 1,3;
+--exec USP_CURso_GrabarTema 4,1;
 
-CREATE PROCEDURE USP_CURso_LlenarCombo
+alter PROCEDURE USP_CURso_LlenarCombo
 
 AS
 BEGIN
@@ -700,7 +733,7 @@ BEGIN
 	SELECT intCod_CUR as Clave, strNombre_CUR as Dato
 
 	from tblCURso
-	order by strNombre_CUR
+	order by intCod_CUR
 	
 END
 GO
@@ -834,7 +867,7 @@ BEGIN
 
 	from tblPROgramacion inner join tblCURso on idCUR_PRO = intCod_CUR
 	where intCod_CUR = @idCurso
-	order by strNombre_CUR
+	order by intCod_PRO
 	
 END
 GO
@@ -1018,7 +1051,7 @@ BEGIN
 	SELECT intCod_FPAG as Clave, strDescripcion_FPAG as Dato
 
 	from tblForma_PAGo
-	order by strDescripcion_FPAG
+	order by intCod_FPAG
 	
 END
 GO

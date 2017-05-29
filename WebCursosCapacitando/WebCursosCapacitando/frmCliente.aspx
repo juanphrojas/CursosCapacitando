@@ -16,7 +16,7 @@
     <tr style="background-color: #FFF5CE">
         <td>&nbsp;</td>
         <td>
-                        <asp:Menu ID="mnuOpciones" runat="server" CssClass="nuevoEstilo7" Orientation="Horizontal" RenderingMode="Table" Width="100%">
+                        <asp:Menu ID="mnuOpciones" runat="server" CssClass="nuevoEstilo7" Orientation="Horizontal" RenderingMode="Table" Width="100%" OnMenuItemClick="mnuOpciones_MenuItemClick">
                             <Items>
                                 <asp:MenuItem Text="Agregar" Value="opcAgregar"></asp:MenuItem>
                                 <asp:MenuItem Text="Modificar" Value="opcModificar"></asp:MenuItem>
@@ -41,8 +41,8 @@
                     <tr>
                         <td><strong>Código:</strong></td>
                         <td>
-                            <asp:TextBox ID="txtCodigo" runat="server" Height="20px" Width="269px"></asp:TextBox>
-                            <asp:ImageButton ID="ibtnBuscar" runat="server" Height="25px" ImageUrl="~/imagenes/buscar.png" />
+                            <asp:TextBox ID="txtCodigo" runat="server" Height="20px" Width="269px" ReadOnly="True"></asp:TextBox>
+                            <asp:ImageButton ID="ibtnBuscar" runat="server" Height="25px" ImageUrl="~/imagenes/buscar.png" OnClick="ibtnBuscar_Click" Visible="False" />
                         </td>
                         <td>&nbsp;</td>
                         <td>&nbsp;</td>
@@ -56,11 +56,11 @@
                     <tr>
                         <td><strong>Nombre:</strong></td>
                         <td>
-                            <asp:TextBox ID="txtNombre" runat="server" Height="20px" Width="269px"></asp:TextBox>
+                            <asp:TextBox ID="txtNombre" runat="server" Height="20px" Width="269px" ReadOnly="True"></asp:TextBox>
                         </td>
                         <td><strong>Apellido:</strong></td>
                         <td>
-                            <asp:TextBox ID="txtApellido" runat="server" Height="20px" Width="269px"></asp:TextBox>
+                            <asp:TextBox ID="txtApellido" runat="server" Height="20px" Width="269px" ReadOnly="True"></asp:TextBox>
                         </td>
                     </tr>
                     <tr>
@@ -72,11 +72,11 @@
                     <tr>
                         <td><strong>Nro. Docuento: </strong></td>
                         <td>
-                            <asp:TextBox ID="txtNroDoc" runat="server" Height="20px" Width="269px"></asp:TextBox>
+                            <asp:TextBox ID="txtNroDoc" runat="server" Height="20px" Width="269px" ReadOnly="True"></asp:TextBox>
                         </td>
                         <td><strong>Empleado:</strong></td>
                         <td>
-                            <asp:TextBox ID="txtEmpleado" runat="server" Height="20px" Width="269px"></asp:TextBox>
+                            <asp:TextBox ID="txtEmpleado" runat="server" Height="20px" Width="269px" ReadOnly="True"></asp:TextBox>
                         </td>
                     </tr>
                     <tr>
@@ -93,14 +93,22 @@
                     </tr>
                     <tr>
                         <td colspan="2" style="text-align: center">
-                            <asp:Button ID="btnAddCliente" runat="server" BackColor="#00FF99" BorderColor="#00B96F" BorderStyle="None" CssClass="nuevoEstilo2" Font-Bold="True" ForeColor="#002847" Height="47px" Text="Resgistrar Cliente" Width="200px" />
+                            <asp:Button ID="btnAddCliente" runat="server" BackColor="#00FF99" BorderColor="#00B96F" BorderStyle="None" CssClass="nuevoEstilo2" Font-Bold="True" ForeColor="#002847" Height="47px" Text="Resgistrar Cliente" Width="200px" OnClick="btnAddCliente_Click" Visible="False" />
                         </td>
                         <td colspan="2" style="text-align: center">
-                            <asp:Button ID="btnModCliente" runat="server" BackColor="#FFCC66" BorderColor="#00B96F" BorderStyle="None" CssClass="nuevoEstilo2" Font-Bold="True" ForeColor="#002847" Height="47px" Text="Modificar" Width="200px" />
+                            <asp:Button ID="btnModCliente" runat="server" BackColor="#FFCC66" BorderColor="#00B96F" BorderStyle="None" CssClass="nuevoEstilo2" Font-Bold="True" ForeColor="#002847" Height="47px" Text="Modificar" Width="200px" OnClick="btnModCliente_Click" Visible="False" />
                         </td>
                     </tr>
                 </table>
             </asp:Panel>
+        </td>
+    </tr>
+    <tr>
+        <td colspan="3">&nbsp;</td>
+    </tr>
+    <tr>
+        <td colspan="3" class="auto-style3">
+            <asp:Label ID="lblMensaje" runat="server"></asp:Label>
         </td>
     </tr>
     <tr>

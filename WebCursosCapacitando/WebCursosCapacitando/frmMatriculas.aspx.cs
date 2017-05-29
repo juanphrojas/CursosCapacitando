@@ -13,5 +13,10 @@ namespace WebCursosCapacitando
         {
 
         }
+
+        protected void mnuOpc_MenuItemClick(object sender, MenuEventArgs e)
+        {
+
+        }
     }
 }

@@ -16,7 +16,7 @@
         <tr style="background-color: #FFF5CE">
             <td>&nbsp;</td>
             <td>
-                        <asp:Menu ID="mnuOpc" runat="server" CssClass="nuevoEstilo7" Orientation="Horizontal" RenderingMode="Table" Width="100%">
+                        <asp:Menu ID="mnuOpc" runat="server" CssClass="nuevoEstilo7" Orientation="Horizontal" RenderingMode="Table" Width="100%" OnMenuItemClick="mnuOpc_MenuItemClick">
                             <Items>
                                 <asp:MenuItem Text="Agregar" Value="opcAgregar"></asp:MenuItem>
                                 <asp:MenuItem Text="Modificar" Value="opcModificar"></asp:MenuItem>

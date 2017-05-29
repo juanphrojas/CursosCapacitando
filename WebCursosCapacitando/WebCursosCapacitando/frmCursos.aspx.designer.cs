@@ -58,31 +58,31 @@ namespace WebCursosCapacitando {
         protected global::System.Web.UI.WebControls.TextBox txtNombre;
         
         /// <summary>
-        /// Control txtApellido.
+        /// Control txtFecha.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtApellido;
+        protected global::System.Web.UI.WebControls.TextBox txtFecha;
         
         /// <summary>
-        /// Control txtNroDoc.
+        /// Control txtCosto.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtNroDoc;
+        protected global::System.Web.UI.WebControls.TextBox txtCosto;
         
         /// <summary>
-        /// Control txtUsuario.
+        /// Control txtHoras.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtUsuario;
+        protected global::System.Web.UI.WebControls.TextBox txtHoras;
         
         /// <summary>
         /// Control txtEmpleado.
@@ -103,13 +103,13 @@ namespace WebCursosCapacitando {
         protected global::System.Web.UI.WebControls.Panel PanelTemas;
         
         /// <summary>
-        /// Control ddlCargo1.
+        /// Control ddlTema.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlCargo1;
+        protected global::System.Web.UI.WebControls.DropDownList ddlTema;
         
         /// <summary>
         /// Control btnAddTema0.
@@ -130,13 +130,22 @@ namespace WebCursosCapacitando {
         protected global::System.Web.UI.WebControls.Button btnAddCurso;
         
         /// <summary>
-        /// Control btnModEmpleado.
+        /// Control btnModCurso.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnModEmpleado;
+        protected global::System.Web.UI.WebControls.Button btnModCurso;
+        
+        /// <summary>
+        /// Control lblMensaje.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblMensaje;
         
         /// <summary>
         /// Control grvCursos.

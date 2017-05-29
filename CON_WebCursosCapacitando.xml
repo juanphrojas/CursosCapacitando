@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Parametros>
+  <Servidor>DESKTOP-6VTSD1D</Servidor>   <!--Para el nombre del servidor-->
+  <BaseDatos>BDCursosCapacitando</BaseDatos>
+  <Usuario>Daristi</Usuario>
+  <Clave>123#pfeo</Clave>
+  <SeguridadIntegrada>Si</SeguridadIntegrada>
+</Parametros>

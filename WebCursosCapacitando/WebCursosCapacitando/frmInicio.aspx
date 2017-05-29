@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/frmPrincipal.Master" AutoEventWireup="true" CodeBehind="Formulario web1.aspx.cs" Inherits="WebCursosCapacitando.Formulario_web1" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/frmPrincipal.Master" AutoEventWireup="true" CodeBehind="frmInicio.aspx.cs" Inherits="WebCursosCapacitando.Formulario_web1" %>
 <asp:Content ID="Content4" ContentPlaceHolderID="Cuerpo" runat="server">
     
     <table cellpadding="0" cellspacing="0" class="auto-style1">
@@ -25,7 +25,7 @@
                 <tr style="background-color: #FFF5CE">
                     <td colspan="2">&nbsp;</td>
                     <td colspan="2" style="text-align: center">
-                        <asp:Menu ID="mnuOpciones" runat="server" CssClass="nuevoEstilo7" Orientation="Horizontal" RenderingMode="Table" Width="100%">
+                        <asp:Menu ID="mnuOpciones" runat="server" CssClass="nuevoEstilo7" Orientation="Horizontal" RenderingMode="Table" Width="100%" OnMenuItemClick="mnuOpciones_MenuItemClick">
                             <Items>
                                 <asp:MenuItem Text="Agregar" Value="opcAgregar"></asp:MenuItem>
                                 <asp:MenuItem Text="Modificar" Value="opcModificar"></asp:MenuItem>
@@ -54,17 +54,32 @@
                                     <td>&nbsp;</td>
                                 </tr>
                                 <tr>
+                                    <td class="auto-style10"><strong style="text-align: right">Codigo:</strong></td>
+                                    <td class="auto-style8">
+                                        <asp:TextBox ID="txtCodigo" runat="server" ReadOnly="True" Width="290px"></asp:TextBox>
+                                    </td>
+                                    <td class="auto-style18" colspan="2">
+                                        <asp:ImageButton ID="ibtnBuscar0" runat="server" Height="25px" ImageUrl="~/imagenes/buscar.png" OnClick="ibtnBuscar0_Click" Visible="False" />
+                                    </td>
+                                    <td>&nbsp;</td>
+                                </tr>
+                                <tr>
+                                    <td class="auto-style10">&nbsp;</td>
+                                    <td class="auto-style8">&nbsp;</td>
+                                    <td class="auto-style14" colspan="2">&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                </tr>
+                                <tr>
                                     <td class="auto-style6"><strong style="text-align: right">Curso:</strong></td>
                                     <td class="auto-style9">
-                                        <asp:DropDownList ID="ddlCurso" runat="server" Height="29px" Width="300px" style="text-align: left">
+                                        <asp:DropDownList ID="ddlCurso" runat="server" Height="29px" Width="300px" style="text-align: left" Enabled="False">
                                         </asp:DropDownList>
                                     </td>
                                     <td class="auto-style16">
-                                        <asp:ImageButton ID="ibtnBuscar" runat="server" Height="25px" ImageUrl="~/imagenes/buscar.png" />
-                                    </td>
+                                        &nbsp;</td>
                                     <td class="auto-style16"><strong style="text-align: right">Docente a cargo:</strong></td>
                                     <td class="auto-style17">
-                                        <asp:DropDownList ID="ddlDocente" runat="server" Height="30px" Width="420px">
+                                        <asp:DropDownList ID="ddlDocente" runat="server" Height="30px" Width="420px" Enabled="False">
                                         </asp:DropDownList>
                                     </td>
                                 </tr>
@@ -78,11 +93,12 @@
                                     <td class="auto-style3" colspan="2"><strong>Fecha de inicio</strong></td>
                                     <td class="auto-style3" colspan="3">
                                         <asp:Panel ID="PanelEstado" runat="server">
-                                            <strong>Estado</strong><asp:RadioButtonList ID="rbtnEstado" runat="server" CellSpacing="5" RepeatDirection="Horizontal" Width="100%">
+                                            <strong>Estado</strong><asp:RadioButtonList ID="rbtnEstado" runat="server" CellSpacing="5" RepeatDirection="Horizontal" Width="100%" Visible="False">
                                                 <asp:ListItem Selected="True" Value="opcActivo">Activo</asp:ListItem>
                                                 <asp:ListItem Value="opcInactivo">Inactivo</asp:ListItem>
                                                 <asp:ListItem Value="opcCancelado">Cancelado</asp:ListItem>
                                             </asp:RadioButtonList>
+                                            <asp:TextBox ID="txtEstado" runat="server" ReadOnly="True"></asp:TextBox>
                                         </asp:Panel>
                                     </td>
                                 </tr>
@@ -93,7 +109,7 @@
                                 </tr>
                                 <tr>
                                     <td colspan="2" rowspan="6">
-                                        <asp:Calendar ID="Calendar1" runat="server" BackColor="White" BorderColor="#999999" CellPadding="10" CssClass="nuevoEstilo1" DayNameFormat="Shortest" Font-Names="Verdana" Font-Size="8pt" ForeColor="Black" Height="180px" Width="60%">
+                                        <asp:Calendar ID="Calendar1" runat="server" BackColor="White" BorderColor="#999999" CellPadding="10" CssClass="nuevoEstilo1" DayNameFormat="Shortest" Font-Names="Verdana" Font-Size="8pt" ForeColor="Black" Height="180px" Width="60%" Enabled="False" OnSelectionChanged="Calendar1_SelectionChanged">
                                             <DayHeaderStyle BackColor="#CCCCCC" Font-Bold="True" Font-Size="7pt" />
                                             <NextPrevStyle VerticalAlign="Bottom" />
                                             <OtherMonthDayStyle ForeColor="#808080" />
@@ -107,7 +123,7 @@
                                     </td>
                                     <td class="auto-style15" colspan="2"><strong>Cupos:</strong></td>
                                     <td class="auto-style11">
-                                        <asp:TextBox ID="txtCupos" runat="server" Height="30px" Width="231px"></asp:TextBox>
+                                        <asp:TextBox ID="txtCupos" runat="server" Height="30px" Width="231px" ReadOnly="True"></asp:TextBox>
                                     </td>
                                 </tr>
                                 <tr>
@@ -117,7 +133,7 @@
                                 <tr>
                                     <td class="auto-style14" colspan="2">Empleado: </td>
                                     <td>
-                                        <asp:TextBox ID="txtEmpleado" runat="server" Height="30px" Width="231px"></asp:TextBox>
+                                        <asp:TextBox ID="txtEmpleado" runat="server" Height="30px" Width="231px" ReadOnly="True"></asp:TextBox>
                                     </td>
                                 </tr>
                                 <tr>
@@ -142,11 +158,19 @@
                     <td colspan="6" style="text-align: center">
                                         <asp:Panel ID="PanelAccionesProgram" runat="server">
                                             <div class="auto-style3">
-                                                <asp:Button ID="btnAddProgramacion" runat="server" BackColor="#00FF99" BorderColor="#00B96F" BorderStyle="None" CssClass="nuevoEstilo2" Font-Bold="True" ForeColor="#002847" Height="47px" Text="Añadir a programación" Width="200px" />
-                                                <asp:Button ID="btnModProgramacion" runat="server" BackColor="#FFCC66" BorderColor="#00B96F" BorderStyle="None" CssClass="nuevoEstilo2" Font-Bold="True" ForeColor="#002847" Height="47px" Text="Añadir a programación" Width="200px" />
+                                                <asp:Button ID="btnAddProgramacion" runat="server" BackColor="#00FF99" BorderColor="#00B96F" BorderStyle="None" CssClass="nuevoEstilo2" Font-Bold="True" ForeColor="#002847" Height="47px" Text="Añadir a programación" Width="200px" OnClick="btnAddProgramacion_Click" Visible="False" />
+                                                <asp:Button ID="btnModProgramacion" runat="server" BackColor="#FFCC66" BorderColor="#00B96F" BorderStyle="None" CssClass="nuevoEstilo2" Font-Bold="True" ForeColor="#002847" Height="47px" Text="Añadir a programación" Width="200px" OnClick="btnModProgramacion_Click" Visible="False" />
                                             </div>
                                         </asp:Panel>
                                     </td>
+                </tr>
+                <tr>
+                    <td colspan="6">&nbsp;</td>
+                </tr>
+                <tr>
+                    <td colspan="6" class="auto-style3">
+                        <asp:Label ID="lblMensaje" runat="server"></asp:Label>
+                    </td>
                 </tr>
                 <tr>
                     <td colspan="6">&nbsp;</td>
@@ -236,6 +260,10 @@
             margin: auto;
             width: 60%;
             text-align: center;
+        }
+        .auto-style18 {
+            text-align: left;
+            font-weight: 700;
         }
     </style>
 </asp:Content>
