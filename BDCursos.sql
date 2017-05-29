@@ -872,6 +872,8 @@ BEGIN
 END
 GO
 
+
+--exec USP_PROgramacion_LlenarComboXCurso 1;
 -------------------------------------------------------------------------
 ----------------------------------MATRICULA------------------------------
 -------------------------------------------------------------------------
@@ -911,17 +913,19 @@ alter PROCEDURE USP_MATricula_BuscarXCodigo
 AS
 	BEGIN
 			SELECT intCod_MAT as Clave,
-					idCLI_MAT as Cliente,
+					strNroDocumento_CLI as DocumentoCliente,
+					strApellido_CLI+' '+ strNombre_CLI as NombreCLiente,					
 					CONVERT (varchar(10), dtmFecha_MAT, 103) as FechaMatricula,
-					idEMP_DEMA as EmpleadoMAtricula,
+					(select strApellido_EMP+' '+strNombre_EMP from tblEMPleado where intCod_EMP=idEMP_DEMA)as EmpleadoMatricula,
 					intCod_PAG as CodigoPago,
 					CONVERT (varchar(10), dtmFecha_PAG, 103) as FechaPago,
-					idEMP_PAG as EmpleadoPago,
+					(select strApellido_EMP+' '+strNombre_EMP from tblEMPleado where intCod_EMP=idEMP_PAG)as EmpleadoPago,
 					idFPAG_PAG as FormaPago,
 					realMonto_PAG as MontoPago
 			FROM tblMATricula
 			inner join tblDEtalle_MAtricula on idMAT_DEMA = intCod_MAT
 			inner join tblPAGo on idMAT_PAG = intCod_MAT
+			inner join tblCLIente on intCod_CLI = idCLI_MAT
 			WHERE intCod_MAT = @Codigo
 			EXEC USP_MATricula_BuscarGrid @Codigo
   END
@@ -930,12 +934,11 @@ GO
 --exec USP_MATricula_BuscarXCodigo 1;
 
 CREATE PROCEDURE USP_MATricula_Grabar
-	@idCliente int,
-	@FechaMatricula datetime
+	@idCliente int
 AS
 	BEGIN
 		begin transaction tx
-		insert into tblMATricula values (@idCliente,@FechaMatricula);
+		insert into tblMATricula values (@idCLiente,GETDATE());
 		if (@@ERROR > 0 )
 			begin 
 				rollback transaction tx
@@ -949,6 +952,8 @@ AS
 	
 	END
 GO
+
+
 
 CREATE PROCEDURE USP_MATricula_GrabarProgramacion
 	@idMatricula int,
@@ -982,8 +987,7 @@ GO
 
 CREATE PROCEDURE USP_MATricula_Modificar
 	@Codigo int,
-	@idCliente int,
-	@FechaMatricula datetime
+	@idCliente int
 
 AS
 BEGIN
@@ -996,7 +1000,7 @@ BEGIN
 		begin transaction tx
 		update tblMATricula
 			set idCLI_MAT = @idCliente,
-				dtmFecha_MAT = @FechaMatricula
+				dtmFecha_MAT = GETDATE()
 			where intCod_MAT = @Codigo
 			if (@@ERROR>0)
 				begin 
@@ -1055,3 +1059,33 @@ BEGIN
 	
 END
 GO
+
+CREATE PROCEDURE USP_MATricula_BuscarGridCliente
+@idCliente int
+AS
+BEGIN
+	begin
+		SELECT intCod_CLI as Codigo,
+				CONVERT (varchar(10), dtmFecha_MAT, 103) as FechaMatricula		
+		FROM tblMAtricula inner join tblCLIente on idCLI_MAT = intCod_CLI
+		WHERE intCod_CLI = @idCliente
+	end
+
+END
+GO
+
+CREATE PROCEDURE USP_MATricula_BuscarXCliente
+@idCliente int
+
+AS
+	BEGIN
+			SELECT intCod_CLI as Codigo,
+					strNroDocumento_CLI as CedulaCliente,
+					strApellido_CLI+' '+strNombre_CLI as NombreCliente
+			FROM tblCLIente
+			WHERE intCod_CLI = @idCliente
+			EXEC USP_MATricula_BuscarGridCliente @idCliente
+  END
+GO
+
+--exec USP_MATricula_BuscarXCliente 1;
