@@ -175,9 +175,9 @@ insert into tblCUrso_TEma values (1,1),(1,2),(1,3);
 insert into tblCUrso_TEma values (2,4),(2,5),(2,6);
 insert into tblCUrso_TEma values (3,7),(3,8),(3,9);
 insert into tblMATricula values (1,GETDATE()),(2,GETDATE()),(3,GETDATE());
-insert into tblPROgramacion values (1,3,GETDATE(),1,20,1);
-insert into tblPROgramacion values (2,3,GETDATE(),2,30,1);
-insert into tblPROgramacion values (3,3,GETDATE(),1,10,1);
+insert into tblPROgramacion values (1,3,GETDATE(),'activo',20,1);
+insert into tblPROgramacion values (2,3,GETDATE(),'pausado',30,1);
+insert into tblPROgramacion values (3,3,GETDATE(),'inactivo',10,1);
 insert into tblDEtalle_MAtricula values(1,3,1);
 insert into tblDEtalle_MAtricula values(2,3,2);
 insert into tblDEtalle_MAtricula values(3,3,3);
@@ -351,7 +351,7 @@ AS
   END
 GO
 
---exec USP_EMPleado_BuscarXCodigo 4;
+--exec USP_EMPleado_BuscarXCodigo 1;
 
 CREATE PROCEDURE USP_EMPleado_Grabar
 	@Cedula varchar(20),
@@ -566,7 +566,7 @@ BEGIN
 END
 GO
 
-alter PROCEDURE USP_TEMa_LlenarCombo
+CREATE PROCEDURE USP_TEMa_LlenarCombo
 
 AS
 BEGIN
@@ -725,7 +725,7 @@ END
 GO
 --exec USP_CURso_GrabarTema 4,1;
 
-alter PROCEDURE USP_CURso_LlenarCombo
+CREATE PROCEDURE USP_CURso_LlenarCombo
 
 AS
 BEGIN
@@ -776,7 +776,7 @@ BEGIN
 END
 GO
 
-alter PROCEDURE USP_PROgramacion_BuscarXCodigo
+CREATE PROCEDURE USP_PROgramacion_BuscarXCodigo
 @Codigo int
 
 AS
@@ -866,7 +866,7 @@ BEGIN
 	SELECT intCod_PRO as Clave, CONVERT (varchar(10), dtmFechaInicio_PRO, 103) as Dato
 
 	from tblPROgramacion inner join tblCURso on idCUR_PRO = intCod_CUR
-	where intCod_CUR = @idCurso
+	where intCod_CUR = @idCurso and dtmFechaInicio_PRO > GETDATE()
 	order by intCod_PRO
 	
 END
@@ -889,6 +889,9 @@ CREATE PROCEDURE USP_MATricula_BuscarGeneral
 		END
 GO
 
+
+ --exec USP_MATricula_BuscarGeneral; 
+
 CREATE PROCEDURE USP_MATricula_BuscarGrid
 @Codigo int
 AS
@@ -907,7 +910,24 @@ BEGIN
 END
 GO
 
-alter PROCEDURE USP_MATricula_BuscarXCodigo
+CREATE PROCEDURE USP_MATricula_BuscarXPago
+@Codigo int
+
+AS
+	BEGIN
+			SELECT intCod_PAG as CodigoPago,
+					CONVERT (varchar(10), dtmFecha_PAG, 103) as FechaPago,
+					strApellido_EMP+' '+strNombre_EMP as EmpleadoPago,
+					idFPAG_PAG as FormaPago,
+					realMonto_PAG as Monto
+					
+			FROM tblPAGo
+			inner join tblEMPleado on intCod_EMP = idEMP_PAG
+			WHERE idMAT_PAG = @Codigo
+  END
+GO
+
+CREATE PROCEDURE USP_MATricula_BuscarXCodigo
 @Codigo int
 
 AS
@@ -916,22 +936,20 @@ AS
 					strNroDocumento_CLI as DocumentoCliente,
 					strApellido_CLI+' '+ strNombre_CLI as NombreCLiente,					
 					CONVERT (varchar(10), dtmFecha_MAT, 103) as FechaMatricula,
-					(select strApellido_EMP+' '+strNombre_EMP from tblEMPleado where intCod_EMP=idEMP_DEMA)as EmpleadoMatricula,
-					intCod_PAG as CodigoPago,
-					CONVERT (varchar(10), dtmFecha_PAG, 103) as FechaPago,
-					(select strApellido_EMP+' '+strNombre_EMP from tblEMPleado where intCod_EMP=idEMP_PAG)as EmpleadoPago,
-					idFPAG_PAG as FormaPago,
-					realMonto_PAG as MontoPago
+					strApellido_EMP+' '+strNombre_EMP as EmpleadoMatricula
 			FROM tblMATricula
 			inner join tblDEtalle_MAtricula on idMAT_DEMA = intCod_MAT
-			inner join tblPAGo on idMAT_PAG = intCod_MAT
+			inner join tblEMPleado on idEMP_DEMA = intCod_EMP
 			inner join tblCLIente on intCod_CLI = idCLI_MAT
-			WHERE intCod_MAT = @Codigo
-			EXEC USP_MATricula_BuscarGrid @Codigo
+			WHERE intCod_MAT = @Codigo;
+			EXEC USP_MATricula_BuscarXPago @Codigo;
+			EXEC USP_MATricula_BuscarGrid @Codigo;
   END
 GO
 
---exec USP_MATricula_BuscarXCodigo 1;
+--exec USP_MATricula_BuscarXCodigo 6;
+
+
 
 CREATE PROCEDURE USP_MATricula_Grabar
 	@idCliente int
@@ -953,7 +971,7 @@ AS
 	END
 GO
 
-
+--exec USP_MATricula_Grabar 3;
 
 CREATE PROCEDURE USP_MATricula_GrabarProgramacion
 	@idMatricula int,
@@ -961,7 +979,7 @@ CREATE PROCEDURE USP_MATricula_GrabarProgramacion
 	@idEmpleado int
 AS
 BEGIN
-	if exists (select intCod_DEMA from tblDEtalle_MAtricula where idMAT_DEMA =idMAT_DEMA and idPRO_DEMA = @idPograma)
+	if exists (select intCod_DEMA from tblDEtalle_MAtricula where idMAT_DEMA = @idMatricula and idPRO_DEMA = @idPograma)
 		begin 
 			select -1 as Rpta
 			return 
@@ -984,6 +1002,8 @@ BEGIN
 		
 END
 GO
+
+--exec USP_MATricula_GrabarProgramacion 6, 2, 3;
 
 CREATE PROCEDURE USP_MATricula_Modificar
 	@Codigo int,

@@ -28,6 +28,12 @@ namespace WebCursosCapacitando
                 return;
             txtCodigo.ReadOnly = true;
             ibtnBuscarXCodigo.Visible = false;
+            if(intOpcion == 4)
+            {
+                PanelPago.Visible = true;
+                PanelPago.Enabled = false;
+                ibtnBuscarXCliente.Visible = false;
+            }
             if(intOpcion==2)
             {
                 txtCodCliente.ReadOnly = false;
@@ -43,9 +49,13 @@ namespace WebCursosCapacitando
             {
                 PanelPago.Visible = true;
                 PanelPago.Enabled = true;
+                txtFechaPag.Text = DateTime.Now.ToShortDateString();
+                
+                if (Convert.ToInt32(txtCodPag.Text) > 0)
+                    PanelPago.Enabled = false;
+                    
             }
-            if (!string.IsNullOrEmpty(txtCodPag.Text))
-                PanelPago.Enabled = false;
+            
                 
         }
 
@@ -173,7 +183,7 @@ namespace WebCursosCapacitando
                 clsMatricula objMAT = new clsMatricula(strApp);
                 objMAT.Codigo = Convert.ToInt32(txtCodigo.Text);
                 objMAT.idFormaPago = Convert.ToInt32(ddlFormaPago0.SelectedValue);
-                objMAT.idEmpleadoMatricula = 3;
+                objMAT.idEmpleadoPago = 3;
                 objMAT.MontoPago = Convert.ToSingle(txtMontoPag.Text);
                 if (!objMAT.AgregarPago())
                 {
@@ -264,7 +274,7 @@ namespace WebCursosCapacitando
             {
 
                 Mensaje(string.Empty);
-                intCodigoMatricula = Convert.ToInt32(txtCodigo.Text.Trim());
+                intCodigoMatricula = Convert.ToInt32(txtCodigo.Text);
                 if (intCodigoMatricula <= 0)
                 {
                     Mensaje("Codigo de la matricula no valido");
@@ -284,10 +294,10 @@ namespace WebCursosCapacitando
                 this.txtCodigo.Text = objMAT.Codigo.ToString();
                 this.txtNombreCliente.Text = objMAT.NombreCliente.ToString();
                 this.txtDocCliente.Text = objMAT.DocCLiente.ToString();
-                this.txtFechaMat.Text = objMAT.FechaMatricula.ToString();
+                this.txtFechaMat.Text = objMAT.FechaMatricula.ToShortDateString();
                 this.txtEmpleadoMat.Text = objMAT.NombreEmpleadoMatricula.ToString();
                 this.ddlFormaPago0.SelectedValue = objMAT.idFormaPago.ToString();
-                this.txtFechaPag.Text = objMAT.FechaPago.ToString();
+                this.txtFechaPag.Text = objMAT.FechaPago.ToShortDateString();
                 this.txtEmpleadoPag.Text = objMAT.NombreEmpleadoPago.ToString();
                 this.txtCodPag.Text = objMAT.CodPago.ToString();
                 this.txtMontoPag.Text = objMAT.MontoPago.ToString();

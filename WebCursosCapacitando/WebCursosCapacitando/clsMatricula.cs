@@ -236,15 +236,26 @@ namespace WebCursosCapacitando
                     NombreCliente = dr[2].ToString();
                     FechaMatricula = Convert.ToDateTime(dr[3]);
                     NombreEmpleadoMatricula = dr[4].ToString();
-                    CodPago = Convert.ToInt32(dr[5]);
-                    FechaPago = Convert.ToDateTime(dr[6]);
-                    NombreEmpleadoMatricula = dr[7].ToString();
-                    idFormaPago = Convert.ToInt32(dr[8]);
-                    MontoPago = Convert.ToSingle(dr[9]);
+                    
+                }
+                Mydt.Clear();
+                Mydt = Myds.Tables[1];
+                foreach (DataRow dr in Mydt.Rows)
+                {
+                    CodPago = Convert.ToInt32(dr[0]);
+                    FechaPago = Convert.ToDateTime(dr[1]);
+                    NombreEmpleadoPago = dr[2].ToString();
+                    idFormaPago = Convert.ToInt32(dr[3]);
+                    MontoPago = Convert.ToSingle(dr[4]);
+                }
+                if(Mydt.Rows.Count <= 0)
+                {
+                    idFormaPago = 1;
+                    NombreEmpleadoPago = string.Empty;
                 }
                 Mydt.Clear();
                 //Llenar el Grid
-                Mydt = Myds.Tables[1];
+                Mydt = Myds.Tables[2];
                 grid.DataSource = Mydt;
                 grid.DataBind();
                 return true;
@@ -310,7 +321,8 @@ namespace WebCursosCapacitando
             {
                 if (!ValidarDatos())
                     return false;
-                if(!ValidarProgramacion())
+                if (!ValidarProgramacion())
+                    return false;
 
                 strSQL = "exec USP_MATricula_Grabar '" + idCliente + "';";
 

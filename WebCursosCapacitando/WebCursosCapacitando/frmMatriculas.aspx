@@ -110,7 +110,7 @@
                                     <tr>
                                         <td><strong>Curso:</strong></td>
                                         <td>
-                                            <asp:DropDownList ID="ddlCursos" runat="server" Height="25px" Width="296px" OnSelectedIndexChanged="ddlCursos_SelectedIndexChanged">
+                                            <asp:DropDownList ID="ddlCursos" runat="server" Height="25px" Width="296px" OnSelectedIndexChanged="ddlCursos_SelectedIndexChanged" AutoPostBack="True">
                                             </asp:DropDownList>
                                         </td>
                                         <td><strong>Programa:</strong></td>
@@ -183,7 +183,7 @@
                                                         </td>
                                                         <td><strong>Fecha:</strong></td>
                                                         <td>
-                                                            <asp:TextBox ID="txtFechaPag" runat="server" Width="296px"></asp:TextBox>
+                                                            <asp:TextBox ID="txtFechaPag" runat="server" Width="296px" ReadOnly="True"></asp:TextBox>
                                                         </td>
                                                     </tr>
                                                     <tr>
@@ -201,7 +201,7 @@
                                                     <tr>
                                                         <td><strong>Empleado:</strong></td>
                                                         <td>
-                                                            <asp:TextBox ID="txtEmpleadoPag" runat="server" Width="296px"></asp:TextBox>
+                                                            <asp:TextBox ID="txtEmpleadoPag" runat="server" Width="296px" ReadOnly="True"></asp:TextBox>
                                                         </td>
                                                         <td class="nuevoEstilo7"><strong>Monto:</strong></td>
                                                         <td>
@@ -219,7 +219,7 @@
                                                         <td>&nbsp;</td>
                                                         <td>&nbsp;</td>
                                                         <td>
-                                                            <asp:Button ID="btnAddPago" runat="server" BackColor="#0099FF" BorderColor="#00B96F" BorderStyle="None" CssClass="nuevoEstilo2" Font-Bold="True" ForeColor="White" Height="47px" Text="Resgistrar Pago" Width="200px" OnClick="btnAddPago_Click" Visible="False" />
+                                                            <asp:Button ID="btnAddPago" runat="server" BackColor="#0099FF" BorderColor="#00B96F" BorderStyle="None" CssClass="nuevoEstilo2" Font-Bold="True" ForeColor="White" Height="47px" Text="Resgistrar Pago" Width="200px" OnClick="btnAddPago_Click" />
                                                         </td>
                                                     </tr>
                                                 </table>
